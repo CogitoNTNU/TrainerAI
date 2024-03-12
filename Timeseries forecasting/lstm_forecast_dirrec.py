@@ -5,9 +5,11 @@ import numpy as np
 import pandas as pd
 import load_data as ld
 
-dataset_path = 'onerepmax.csv'
+
+dataset_path = 'data/onerepmax.csv'
 model_path = 'models/model.h5'
 n_steps = 150 # Number of time steps to consider
+targetname = 'Benchpress'
 
 dataset = ld.load(path=dataset_path)
 dataset['orm_interpolated'] = dataset[targetname].replace(0, method='pad')
@@ -27,6 +29,7 @@ def predict_future_strength(targetname, future_steps):
 
     X_test = target_scaled[-n_steps:].reshape(1, n_steps, 1)
     predictions = []
+    predictions_rescaled = []
 
     for i in range(future_steps):
         prediction = model.predict(X_test)
@@ -35,7 +38,8 @@ def predict_future_strength(targetname, future_steps):
         X_test = np.append(X_test[:, 1:, :], prediction_expanded, axis=1)
         pred_rescaled = scaler.inverse_transform(prediction)
         print(str(pred_rescaled[0][0]))
-    return predictions
+        predictions_rescaled.append(pred_rescaled[0][0])
+    return predictions_rescaled
 
 model = load_model_from_file(model_path)
 def load_model():
@@ -47,8 +51,8 @@ predictions = predict_future_strength('Benchpress', 60)
 # plot predictions and actual values
 import matplotlib.pyplot as plt
 plt.figure(figsize=(10, 6))
-plt.plot(range(150, 150+len(predictions)), predictions, label='Predicted')
-plt.plot(target.index[-60:], target['orm_interpolated'].values[-60:], label='Actual')
+plt.plot(target.index[-60:], predictions, label='Predicted')
+plt.plot(target.index[0:], target['orm_interpolated'].values[0:], label='Actual')
 plt.xlabel('Time Steps')
 plt.ylabel('One-Rep Max')
 plt.show()

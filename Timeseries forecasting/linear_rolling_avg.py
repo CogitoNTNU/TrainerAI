@@ -6,14 +6,12 @@ from statsmodels.tsa.deterministic import DeterministicProcess
 from statsmodels.graphics.tsaplots import plot_acf
 import numpy as np
 
-dfv = load(path='data.csv')
+dfv = load(path='data/volume.csv')
 dates = dfv.loc[:, 'date']
 
-dfo = load(path='onerepmax.csv')
+dfo = load(path='data/onerepmax.csv')
 
 # Do a linear correlation between the one rep max of benchpress, the volume of benchpress, and the volume of squats
-# squats_volume = dfv['Squats']
-# benchpress_volume = dfv['Benchpress']
 target_name = 'Benchpress'
 target_name2 = 'Dumbell incline press 30 degrees'
 target = dfo[target_name]
@@ -27,10 +25,6 @@ rolling_avg = interpolated_target.rolling(window=30, min_periods=14, center=Fals
 rolling_avg.fillna(0, inplace=True)
 rolling_avg2 = interpolated_target2.rolling(window=30, min_periods=14, center=False).mean()
 rolling_avg2.fillna(0, inplace=True)
-
-# Plot autocorrelation of the target to determine lags
-# plot_acf(target, lags=40)
-# plt.show()
 
 # Workout day feature
 dfo['workout_day'] = (dfv['weightVolume'] > 0).astype(int)

@@ -5,28 +5,21 @@ from load_data import load
 from statsmodels.tsa.deterministic import DeterministicProcess
 from statsmodels.graphics.tsaplots import plot_acf
 import numpy as np
-import boostedHybrid as bh
+import boosted_hybrid as bh
 from xgboost import XGBRegressor
 
 # Load data
-dfv = load(path='data.csv')
+dfv = load(path='data/volume.csv')
 dates = dfv.loc[:, 'date']
-dfo = load(path='onerepmax.csv')
+dfo = load(path='data/onerepmax.csv')
 
-# Target
-#target_name = 'Dumbell incline press 30 degrees'
-#target_name = 'Squats'
-#target_name = 'Lat pulldowns'
 target_name = 'Benchpress'
 target = dfo[target_name]
 interpolated_target = dfo['orm_interpolated'] = target.replace(0, method='pad')
+
 # create a rolling average of the ORM over time
 rolling_avg = interpolated_target.rolling(window=14, min_periods=4, center=False).mean()
 rolling_avg.fillna(0, inplace=True)
-
-# Plot autocorrelation of the target to determine lags
-#plot_acf(target, lags=30)
-#plt.show()
 
 # Workout day feature
 dfv['workout_day'] = (dfv['weightVolume'] > 0).astype(int)
@@ -39,7 +32,7 @@ y = pd.Series(interpolated_target, index=dfo.index)
 dp = DeterministicProcess(
     index=dfo.index,  # dates from the training data
     constant=False,       # dummy feature for the bias (y_intercept)
-    order=1,           # the time dummy (trend) polynomial order.
+    order=2,           # the time dummy (trend) polynomial order.
     drop=True,           # drop terms if necessary to avoid collinearity
 )
 X_1 = dp.in_sample()

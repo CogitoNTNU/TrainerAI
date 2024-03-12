@@ -1,2 +1,5 @@
 */venv
 *.env
+*.ds_store
+*.DS_Store
+venv

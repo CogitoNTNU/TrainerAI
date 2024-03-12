@@ -11,8 +11,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.stats import pearsonr
 
-dfv = load(path='data.csv')
-dfo = load(path='onerepmax.csv')
+dfv = load(path='data/volume.csv')
+dfo = load(path='data/onerepmax.csv')
 dates = dfo.loc[:, 'date']
 
 # Assuming dfv and dfo are DataFrames loaded from 'data.csv' and 'onerepmax.csv' respectively

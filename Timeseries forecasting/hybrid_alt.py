@@ -8,24 +8,17 @@ import simpleBoost as bh
 from xgboost import XGBRegressor
 
 # Load data
-dfv = load(path='data.csv')
+dfv = load(path='data/volume.csv')
 dates = dfv.loc[:, 'date']
-dfo = load(path='onerepmax.csv')
+dfo = load(path='data/onerepmax.csv')
 
-# Target
-#target_name = 'Dumbell incline press 30 degrees'
-#target_name = 'Squats'
-#target_name = 'Lat pulldowns'
 target_name = 'Benchpress'
 target = dfo[target_name]
 interpolated_target = dfo['orm_interpolated'] = target.replace(0, method='pad')
+
 # create a rolling average of the ORM over time
 rolling_avg = interpolated_target.rolling(window=14, min_periods=4, center=False).mean()
 rolling_avg.fillna(0, inplace=True)
-
-# Plot autocorrelation of the target to determine lags
-#plot_acf(target, lags=30)
-#plt.show()
 
 # Workout day feature
 dfv['workout_day'] = (dfv['weightVolume'] > 0).astype(int)

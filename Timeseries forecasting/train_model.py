@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from statsmodels.tsa.deterministic import DeterministicProcess
 
-dataset = ld.load(path='onerepmax.csv')
+dataset = ld.load(path='data/onerepmax.csv')
 targetname = 'Benchpress'
 
 # Create a feature for workout days

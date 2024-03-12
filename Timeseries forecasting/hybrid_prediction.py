@@ -5,14 +5,14 @@ from load_data import load
 from statsmodels.tsa.deterministic import DeterministicProcess
 from statsmodels.graphics.tsaplots import plot_acf
 import numpy as np
-import boostedHybrid as bh
+import boosted_hybrid as bh
 from xgboost import XGBRegressor
 from sklearn.neighbors import KNeighborsRegressor
 
 # Load data
-dfv = load(path='data.csv')
+dfv = load(path='data/volume.csv')
 dates = dfv.loc[:, 'date']
-dfo = load(path='onerepmax.csv')
+dfo = load(path='data/onerepmax.csv')
 
 # Target
 #target_name = 'Dumbell incline press 30 degrees'

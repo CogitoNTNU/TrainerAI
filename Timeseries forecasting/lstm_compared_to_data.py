@@ -7,7 +7,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM
 import matplotlib.pyplot as plt
 
-dataset = ld.load(path='onerepmax.csv')
+dataset = ld.load(path='data/onerepmax.csv')
 target = 'Benchpress'
 
 dataset['workout_day'] = (dataset['weightVolume'] > 0).astype(int)
@@ -15,7 +15,7 @@ dataset['orm_interpolated'] = dataset[target].replace(0, method='pad')
 
 target = pd.DataFrame(dataset['orm_interpolated'], index=dataset.index)
 
-# Normalize the data
+# Normalize
 scaler = MinMaxScaler(feature_range=(0, 1))
 target_scaled = scaler.fit_transform(target)
 
@@ -48,12 +48,14 @@ future_steps = 60
 X_test = target_scaled[-n_steps:].reshape(1, n_steps, 1)
 
 predictions_existing_data = model.predict(X)
-
+print(predictions_existing_data)
 # Reshape the predictions to match the original scale
 predictions_existing_data = predictions_existing_data.reshape(-1, 1)
 predictions_existing_data = scaler.inverse_transform(predictions_existing_data)
 
-print(target)
+predictions_test = model.predict(X_test)
+predictions_test = predictions_test.reshape(-1, 1)
+predictions_test = scaler.inverse_transform(predictions_test)
 
 # Plot the results for the existing data
 plt.figure(figsize=(10, 6))
@@ -64,3 +66,5 @@ plt.ylabel('One-Rep-Max')
 plt.legend()
 plt.title('Prediction along Existing Data')
 plt.show()
+
+# This file cannot predict values without a recursive function, or some other 'future' data features.
