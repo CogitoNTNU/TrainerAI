@@ -14,7 +14,7 @@
 <a href="" alt="version">
         <img src="https://img.shields.io/badge/version-0.0.1-blue"></img></a>
 </p>
-<h3 align="center">Coach AI</h3>
+<h3 align="center">Personal Trainer AI</h3>
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -48,16 +48,21 @@ In this section you put what is needed for the program to run.
 For example: OS version, programs, libraries, etc.  
 
 We'll be running Docker.
+- You require Docker to be installed on your machine if you're building the images yourself.
 
 #### Installation
 In this Section you describe how to install this project in its intended environment.(i.e. how to get it to run)  
 
-Docker boi. There'll be a compose file.
 cd into your chosen project folder. Make sure there's a compose.yaml file there.
 Run this in your terminal (Granted you have [Docker]([url](https://www.docker.com/get-started/)) on your system)
 ```
 Docker compose up
 ```
+If you make any code changes, remember to run
+```
+Docker compose build
+```
+before 'compose up' as the 'up' command doesn't rebuild the images.
 
 #### Usage
 ------

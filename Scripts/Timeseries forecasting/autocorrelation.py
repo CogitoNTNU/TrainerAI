@@ -7,5 +7,5 @@ from load_data import load
 
 dfo = load(path='data/onerepmax.csv')
 
-plot_acf(dfo['Lat pulldowns'], lags=40)  # Adjust lags as needed
+plot_acf(dfo['Benchpress'], lags=120)  # Adjust lags as needed
 plt.show()

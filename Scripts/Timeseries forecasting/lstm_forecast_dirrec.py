@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 import load_data as ld
 
-
 dataset_path = 'data/onerepmax.csv'
 model_path = 'models/model.h5'
 n_steps = 150 # Number of time steps to consider

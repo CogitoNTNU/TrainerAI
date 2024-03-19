@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  ui-service:
+    build: ./ui
+    env_file: ./ui/.env
+    restart: unless-stopped
+    networks:
+      - backend
+    stop_signal: SIGINT
+    ports:
+      - "3000:3000"
+
+  llm-service:
+    build: ./langchain
+    env_file: ./langchain/.env
+    restart: unless-stopped
+    networks:
+      - backend
+    stop_signal: SIGINT
+    ports:
+      - "3001:3001"
+
+  timeseries-service:
+    build: ./timeseries
+    env_file: ./timeseries/.env
+    restart: unless-stopped
+    networks:
+      - backend
+    stop_signal: SIGINT
+    ports:
+      - "3002:3002"
+
+  database-service:
+    image: mongo:latest
+    restart: unless-stopped
+    networks:
+      - backend
+    volumes: 
+      - ./mongo/data:/data/db
+    ports:
+      - "27017:27017"
+
+networks:
+  backend:
+    driver: bridge
