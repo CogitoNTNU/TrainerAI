@@ -3,11 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./index.js"></script>
+    <script  src="./index.js" defer></script>
     <link rel="stylesheet" href="./index.css">
     <title>Trainer AI</title>
 </head>
 <body>
-    <h1>Hello there</h1>
+    <h2 class="heading">Your personal trainer</h2>
+    <div id="chat_history_container">
+        <div name="history" id="chat_history">
+            <li class = "chat_element">
+                <img class="profile_picture" src="https://media.istockphoto.com/id/1322220448/photo/abstract-digital-futuristic-eye.jpg?s=612x612&w=0&k=20&c=oAMmGJxyTTNW0XcttULhkp5IxfW9ZTaoVdVwI2KwK5s=">
+                <div class="chat_message_container">
+                    <div class="chat_message">Hello, I am your personal trainer. How can I help you today?</div>
+            </li>
+        </div>
+    </div>
+
+    <div class="chat_input_container">
+        <div id="chat_input">
+            <textarea type="text" id="chat_input_text" placeholder="Type a message..."></textarea>
+        </div>
+    </div>
+    <button id="send_button">Send</button>
+
 </body>
 </html>
