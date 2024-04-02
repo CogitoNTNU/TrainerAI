@@ -10,7 +10,7 @@ from langchain.chains import create_retrieval_chain
 from langchain_community.vectorstores import FAISS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-OPENAI_API_KEY: str = "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"
+OPENAI_API_KEY: str = ""
 llm = ChatOpenAI(openai_api_key = OPENAI_API_KEY)
 
 client = OpenAI(
