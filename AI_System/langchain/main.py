@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request
 
-# Running on port 3001
+# Running on port 3001 - request not to localhost, but to "http://llm-service:3001"
 
-example_conversation = [
+example_conversation_data = [
     [
         {
             "agent": "user",
@@ -34,6 +34,7 @@ def hello_world():
 @app.route('/send_message', methods=['POST', 'GET'])
 def llm_request():
     if(request.method == 'GET'):
+        # Placeholder for wrongful get request
         users = [{'id': 1, 'username': 'Alice'}, {'id': 2, 'username': 'Bob'}]
         return users
     if(request.method == 'POST'):
