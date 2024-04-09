@@ -1,39 +1,49 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-
 const app = express()
 app.use(bodyParser.json())
-
 app.use(express.static('public'))
-
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
 })
 
+// Links, constants
+llm_url = 'http://llm-service:3001/send_message'
 
-requestResponseLLM = () => {
-    (async () => {
-        try {
-          const res = await fetch('http://localhost:3000');
-          const headerDate = res.headers && res.headers.get('date') ? res.headers.get('date') : 'no response date';
-          console.log('Status Code:', res.status);
-          console.log('Date in Response header:', headerDate);
+requestResponseLLM = async (message, conversation_id) => {
+    try {
+      const res = await fetch(llm_url, {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+          message: message,
+          conversation_id: conversation_id
+        })
+      });
       
-          const jsonData = await res.json();
-          return jsonData;
-        } catch (err) {
-          console.log(err.message); //can be console.error
-        }
-      })();
+      const jsonData = await res.json();
+      console.log(jsonData)
+      return jsonData
+    } catch (err) {
+      console.log(err); //can be console.error
+    }
 }
 
-app.post('/send_message', (req, res) => {
-    const data = req.body.message
+app.post('/send_message', async (req, res) => {
+    const message = req.body.message
+    const conversation_id = req.body.conversation_id
     
-    requestResponseLLM()
+    let aiResponse = await requestResponseLLM(message, conversation_id)
+    messageLog.push(message)
 
-    messageLog.push(data)
-    res.send(messageLog)
+    res.json({
+      "aiResponse": aiResponse,
+      "messageLog": messageLog
+    })
 })
 
 // TODO Setup a websocket connection for streaming results live.

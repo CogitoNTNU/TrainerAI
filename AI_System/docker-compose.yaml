@@ -5,6 +5,8 @@ services:
     build: ./ui
     env_file: ./ui/.env
     restart: unless-stopped
+    volumes:
+      - ./ui:/app  # Mount the application code
     networks:
       - backend
     stop_signal: SIGINT
@@ -39,15 +41,15 @@ services:
     ports:
       - "3002:3002"
 
-  database-service:
-    image: mongo:latest
-    restart: unless-stopped
-    networks:
-     - backend
-    volumes: 
-      - ./mongodb/data:/data/db
-    ports:
-      - "27017:27017"
+#  database-service:
+#    image: mongo:latest
+#    restart: unless-stopped
+#    networks:
+#     - backend
+#    volumes: 
+#      - ./mongodb/data:/data/db
+#    ports:
+#      - "27017:27017"
 
 networks:
   backend:

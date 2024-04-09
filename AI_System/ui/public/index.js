@@ -1,25 +1,38 @@
+// Runs on inital startup, after window (html) has finished loading
 init = () => {
-    console.log("Hello from the client side!")
     document.getElementById('send_button').addEventListener('click', sendMessage)
 }
+window.onload = init;
 
+// Placeholder
+conversation_id = 0
+
+// When user sends a message (pressing send button) this funciton runs
 sendMessage = async () => {
     const user_input = document.getElementById('chat_input_text').value
-    document.getElementById('chat_input_text').value = ''
+    addUserMessage(user_input)
+    
     res = await fetch('/send_message', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ message: user_input, source: 'user' })
+        body: JSON.stringify({ message: user_input, conversation_id, source: 'user',})
     })
-    res.json().then(data => {
-        console.log(data)
-        console.log(data[data.length-1])
-        addUserMessage(data[data.length-1])
-    })
+    document.getElementById('chat_input_text').value = ''
+    let json = await res.json()
+    console.log(json)
+    addMessage(json.aiResponse.message)
 }
 
+window.addEventListener('keydown', (event) => {
+    if(event.key == "Enter" && !event.shiftKey){
+        sendMessage()
+    }
+})
+
+// For seeing formatted HTML in javascript files, this extension for VSCode is recommended:
+// https://marketplace.visualstudio.com/items?itemName=pushqrdx.inline-html
 
 addMessage = (message) => {
     let html = /*html*/`
@@ -30,6 +43,7 @@ addMessage = (message) => {
     </li>`
     document.getElementById('chat_history').innerHTML += html;
 }
+
 addUserMessage = (message) => {
     let html = /*html*/`
     <li class = "chat_element">
@@ -39,9 +53,6 @@ addUserMessage = (message) => {
     </li>`
     document.getElementById('chat_history').innerHTML += html;
 }
-
-
-window.onload = init;
 
 buildRecievingMessage = async () => {
 

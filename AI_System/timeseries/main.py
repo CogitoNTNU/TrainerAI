@@ -59,5 +59,9 @@ def predict(data):
     days = data['days'] # Steps into the future
     predict_future_strength(target, days)
 
+@app.route('/heisann')
+def lol():
+    return "memes"
+
 if __name__ == '__main__':
     app.run(debug=True, port=3002, host='0.0.0.0')
