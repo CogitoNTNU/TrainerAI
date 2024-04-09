@@ -1,4 +1,5 @@
-tensorflow==2.16.1
+flask
+tensorflow==2.15.0
 pandas
 numpy
 scikit-learn

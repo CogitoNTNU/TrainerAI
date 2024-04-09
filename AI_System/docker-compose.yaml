@@ -15,6 +15,10 @@ services:
     build: ./langchain
     env_file: ./langchain/.env
     restart: unless-stopped
+    environment:
+      - FLASK_ENV=development # Autorestarts flask when code changes are detected
+    volumes:
+    - ./langchain:/app  # Mount the application code
     networks:
       - backend
     stop_signal: SIGINT
@@ -25,21 +29,25 @@ services:
     build: ./timeseries
     env_file: ./timeseries/.env
     restart: unless-stopped
+    environment:
+      - FLASK_ENV=development # Autorestarts flask when code changes are detected
+    volumes:
+      - ./timeseries:/app  # Mount the application code
     networks:
       - backend
     stop_signal: SIGINT
     ports:
       - "3002:3002"
 
-  database-service:
-    image: mongo:latest
-    restart: unless-stopped
-    networks:
-      - backend
-    volumes: 
-      - ./mongo/data:/data/db
-    ports:
-      - "27017:27017"
+#  database-service:
+#    image: mongo:latest
+#   restart: unless-stopped
+#    networks:
+#     - backend
+#    volumes: 
+#      - ./mongo/data:/data/db
+#    ports:
+#      - "27017:27017"
 
 networks:
   backend:

@@ -10,9 +10,28 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
 })
 
+
+requestResponseLLM = () => {
+    (async () => {
+        try {
+          const res = await fetch('http://localhost:3000');
+          const headerDate = res.headers && res.headers.get('date') ? res.headers.get('date') : 'no response date';
+          console.log('Status Code:', res.status);
+          console.log('Date in Response header:', headerDate);
+      
+          const jsonData = await res.json();
+          return jsonData;
+        } catch (err) {
+          console.log(err.message); //can be console.error
+        }
+      })();
+}
+
 app.post('/send_message', (req, res) => {
     const data = req.body.message
-    console.log(data)
+    
+    requestResponseLLM()
+
     messageLog.push(data)
     res.send(messageLog)
 })
@@ -23,4 +42,4 @@ app.listen(3000, () => {
     console.log('Server is running on http://localhost:3000')
 })
 
-messageLog = []
+messageLog = [] // History of the conversation

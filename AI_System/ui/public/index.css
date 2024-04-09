@@ -30,7 +30,7 @@ body {
 #chat_history_container {
     height: 60vh;
     margin: 8px;
-    padding: 8px;
+    padding: 0px;
     border: 1px solid #000;
     background-color: #434343;
     border-radius: 8px;
@@ -38,7 +38,7 @@ body {
 
 #chat_history {
     list-style-type: none;
-    padding: 0;
+    padding: 0px;
     height: 100%;
     width: 100%;
     background-color: #434343;
@@ -49,7 +49,7 @@ body {
     border-radius: 12px;
     height: 10vh;
     margin: 8px;
-    padding: 8px;
+    padding: 12px;
     border: 1px solid #000;
     background-color: #434343;
     overflow-y: scroll;
@@ -57,7 +57,7 @@ body {
 
 #chat_input_text {
     width: 100%;
-    height: 100%;
+    height: 9vh;
     border: none;
     background-color: #434343;
     color: var(--onSurface);
