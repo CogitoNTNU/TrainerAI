@@ -7,30 +7,46 @@ window.onload = init;
 // Placeholder
 conversation_id = 0
 
+// Changes the loading icon
+let loading = false
+let setLoading = (newLoadingVal) => {
+    //document.getElementById("").style.display = (newLoadingVal ? "block" : "none")
+    loading = newLoadingVal
+}
+
 // When user sends a message (pressing send button) this funciton runs
 sendMessage = async () => {
     let chat_text_field = document.getElementById('chat_input_text')
     const user_input = chat_text_field.value
     addUserMessage(user_input)
-    
-    // Send a message to node, which forwards to llm-service to get the response from the chatbot
-    res = await fetch('/send_message', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ message: user_input, conversation_id, source: 'user',})
-    })
     chat_text_field.value = ''
-    let json = await res.json()
-    addMessage(json.aiResponse.message)
-    let chat_history = document.getElementById("chat_history")
+    setLoading(true)
     chat_history.scrollTop = chat_history.scrollHeight;
+        // Send a message to node, which forwards to llm-service to get the response from the chatbot
+    try{
+        res = await fetch('/send_message', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: user_input, conversation_id, source: 'user',})
+        })
+        let json = await res.json()
+        addMessage(marked.parse(json.aiResponse.message))
+        let chat_history = document.getElementById("chat_history")
+        chat_history.scrollTop = chat_history.scrollHeight;
+        setLoading(false)
+    }catch(e){
+        setLoading(false)
+        chat_history.scrollTop = chat_history.scrollHeight;
+    }
+
 }
 
 window.addEventListener('keydown', (event) => {
     if(event.key == "Enter" && !event.shiftKey){
         sendMessage()
+
     }
 })
 

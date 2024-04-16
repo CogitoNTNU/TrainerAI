@@ -52,7 +52,7 @@ class TrainAiChatbot():
         # Langchain setup
         LANGCHAIN_TRACING_V2: str = "true"
         # Language model
-        self.llm: ChatOpenAI = ChatOpenAI(api_key=OPENAI_API_KEY, model="gpt-4-turbo")
+        self.llm: ChatOpenAI = ChatOpenAI(api_key=OPENAI_API_KEY, model="gpt-3.5-turbo")
         # Template prompt
         self.function_agent_prompt: ChatPromptTemplate = hub.pull("hwchase17/openai-functions-agent")
         # Path to chat history data
@@ -90,13 +90,15 @@ class TrainAiChatbot():
 
         history: list = []
         chat_history_path = self.chat_history_path 
-        
-        with open(chat_history_path, "r") as f:
-            data = json.load(f)
-            for i in data["chat_history"]:
-                history.append(HumanMessage(content=i["human_message"]))
-                history.append(AIMessage(content=i["ai_message"]))
-            f.close()
+        try:
+            with open(chat_history_path, "r") as f:
+                data = json.load(f)
+                for i in data["chat_history"]:
+                    history.append(HumanMessage(content=i["human_message"]))
+                    history.append(AIMessage(content=i["ai_message"]))
+                f.close()
+        except FileNotFoundError:
+            return history
         
         return history
     
@@ -172,6 +174,8 @@ def llm_request():
         return users
     if(request.method == 'POST'):
         data = request.json
+        print(data)
+        print(data['message'])
         ai_message = prompt_chatbot(data['message'])
         return {"message": ai_message}
     
