@@ -10,7 +10,22 @@ conversation_id = 0
 // Changes the loading icon
 let loading = false
 let setLoading = (newLoadingVal) => {
-    //document.getElementById("").style.display = (newLoadingVal ? "block" : "none")
+    if(newLoadingVal){
+        document.getElementById("chat_history").innerHTML += /* html */`
+    <div id="spinner" class="dot-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>`
+    }else{
+        try{
+            document.getElementById("spinner").remove()
+        }catch(e){
+
+        }
+    }
+
     loading = newLoadingVal
 }
 
@@ -18,9 +33,10 @@ let setLoading = (newLoadingVal) => {
 sendMessage = async () => {
     let chat_text_field = document.getElementById('chat_input_text')
     const user_input = chat_text_field.value
-    addUserMessage(user_input)
+    addUserMessage(marked.parse(user_input))
     chat_text_field.value = ''
     setLoading(true)
+    chat_history = document.getElementById("chat_history")
     chat_history.scrollTop = chat_history.scrollHeight;
         // Send a message to node, which forwards to llm-service to get the response from the chatbot
     try{
