@@ -9,9 +9,11 @@ conversation_id = 0
 
 // When user sends a message (pressing send button) this funciton runs
 sendMessage = async () => {
-    const user_input = document.getElementById('chat_input_text').value
+    let chat_text_field = document.getElementById('chat_input_text')
+    const user_input = chat_text_field.value
     addUserMessage(user_input)
     
+    // Send a message to node, which forwards to llm-service to get the response from the chatbot
     res = await fetch('/send_message', {
         method: 'POST',
         headers: {
@@ -19,10 +21,11 @@ sendMessage = async () => {
         },
         body: JSON.stringify({ message: user_input, conversation_id, source: 'user',})
     })
-    document.getElementById('chat_input_text').value = ''
+    chat_text_field.value = ''
     let json = await res.json()
-    console.log(json)
     addMessage(json.aiResponse.message)
+    let chat_history = document.getElementById("chat_history")
+    chat_history.scrollTop = chat_history.scrollHeight;
 }
 
 window.addEventListener('keydown', (event) => {

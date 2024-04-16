@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 
 # Running on port 3001 - request not to localhost, but to "http://llm-service:3001"
 
-# All conversations stored in mongodb
+# All conversations will be stored in mongodb
 example_conversation_data = [
     [
         {
