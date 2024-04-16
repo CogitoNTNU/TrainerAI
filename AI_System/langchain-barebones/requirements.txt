@@ -1,0 +1,9 @@
+flask
+langchain
+langchain-openai
+beautifulsoup4
+langchain-cli
+pandas
+langchainhub
+typing
+python-dotenv
