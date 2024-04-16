@@ -5,3 +5,13 @@ scikit-learn
 python-dotenv
 langchain[llms]
 openai
+langchain-community
+langchain-openai
+langchain-core
+langchain-cli
+langchain-text-splitters
+langchain-openai
+beautifulsoup4
+pandas
+langchainhub
+typing
