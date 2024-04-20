@@ -37,36 +37,32 @@
 
 ### About 
 -----
-This is a template README for projects by Cogito NTNU.   
-
-Here's the introduction about goal and summary of the project.
+Trainer AI is an LLM assistant agent with the goal of helping you workout more efficiently, and spend less time preparing workout sets, and analyzing data.
+You talk to it like a personal coach, and it records your efforts, and lays plans for you to reach your goals.
 ### Getting started
 ------
 
 #### Prerequisites
-In this section you put what is needed for the program to run.
-For example: OS version, programs, libraries, etc.  
-
-We'll be running Docker.
-- You require Docker to be installed on your machine if you're building the images yourself.
+- You require Docker to be installed on your machine.
+- You require an API key for OpenAI & LangSmith
+        - OpenAI requires you to pay. Get a key from Cogito CTO if you're a member.
+        - Langsmith doesn't require payment.
 
 #### Installation
-In this Section you describe how to install this project in its intended environment.(i.e. how to get it to run)  
+Create a .env file inside the folder 'AI_System'
+Add the api keys:
+OPENAI_API_KEY = ""
+LANGSMITH_API_KEY = ""
 
-cd into your chosen project folder. Make sure there's a compose.yaml file there.
+cd into the AI_system folder. Make sure there's a compose.yaml file there.
 Run this in your terminal (Granted you have [Docker]([url](https://www.docker.com/get-started/)) on your system)
 ```
-Docker compose up
+Docker compose up --build
 ```
-If you make any code changes, remember to run
-```
-Docker compose build
-```
-before 'compose up' as the 'up' command doesn't rebuild the images.
 
 #### Usage
 ------
-In this section you describe how to use the program to obtain the desired result.  
+The UI is accessible at https://localhost:3000
 
 ### Architecture
 We're using 4 backend services.
@@ -89,19 +85,16 @@ This way we can host everything on one machine, WITHOUT worrying about CORS.
 
 Right to left: [@example](https://github.com/Jonrodtang)    [@example](https://github.com/Jonrodtang)    [@example](https://github.com/Jonrodtang)    [@example](https://github.com/Jonrodtang)  
 #### Leader(s):
-- [Jon Rødtang](https://github.com/Jonrodtang)
-- [Example exampleson](https://github.com/Jonrodtang)
+- [William Schmidt](https://github.com/williammrs)
 
 #### Team members:
-- [Example exampleson](https://github.com/Jonrodtang)
--  [Examplette examplesen](https://github.com/Jonrodtang)
-- [Examplar examples](https://github.com/Jonrodtang)
+- [Tryggve Klevstul-Jensen]([https://github.com/tryggvek](https://github.com/tryggvek))
+-  [Eldar Alvik](https://github.com/PolarUgle)
+- [James](https://github.com/JamesP62)
 
 ### License
 ------
 Distributed under the MIT License. See `LICENSE` for more information.
-
-
 
 ### Credits
 ------
