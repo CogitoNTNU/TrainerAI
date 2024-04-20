@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(dotenv_path="../.env")
 
 OPENAI_API_KEY: str = os.getenv(key="OPENAI_API_KEY")
 LANGSMITH_API_KEY: str = os.getenv(key="LANGSMITH_API_KEY")

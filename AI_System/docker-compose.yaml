@@ -3,7 +3,7 @@ version: '3.8'
 services:
   ui-service:
     build: ./ui
-    env_file: ./ui/.env
+    env_file: .env
     restart: unless-stopped
     volumes:
       - ./ui:/app  # Mount the application code
@@ -15,7 +15,7 @@ services:
 
   llm-service:
     build: ./langchain
-    env_file: ./langchain/.env
+    env_file: .env
     restart: unless-stopped
     environment:
       - FLASK_ENV=development # Autorestarts flask when code changes are detected
@@ -29,7 +29,7 @@ services:
 
   timeseries-service:
     build: ./timeseries
-    env_file: ./timeseries/.env
+    env_file: .env
     restart: unless-stopped
     environment:
       - FLASK_ENV=development # Autorestarts flask when code changes are detected
