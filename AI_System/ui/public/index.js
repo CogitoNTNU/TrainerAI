@@ -29,6 +29,11 @@ let setLoading = (newLoadingVal) => {
     loading = newLoadingVal
 }
 
+
+let checkbox = document.getElementById("checkbox")
+checkbox.addEventListener('click', ()=>{
+    console.log(checkbox.checked)
+})
 // When user sends a message (pressing send button) this funciton runs
 sendMessage = async () => {
     let chat_text_field = document.getElementById('chat_input_text')
@@ -48,7 +53,13 @@ sendMessage = async () => {
             body: JSON.stringify({ message: user_input, conversation_id, source: 'user',})
         })
         let json = await res.json()
-        addMessage(marked.parse(json.aiResponse.message))
+        let shouldParse = document.getElementById("checkbox").checked
+        
+        if(shouldParse){
+            addMessage(marked.parse(json.aiResponse.message))
+        }else{
+            addMessage((json.aiResponse.message))
+        }
         let chat_history = document.getElementById("chat_history")
         chat_history.scrollTop = chat_history.scrollHeight;
         setLoading(false)
