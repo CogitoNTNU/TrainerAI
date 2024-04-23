@@ -29,7 +29,6 @@ let setLoading = (newLoadingVal) => {
     loading = newLoadingVal
 }
 
-
 let checkbox = document.getElementById("checkbox")
 checkbox.addEventListener('click', ()=>{
     console.log(checkbox.checked)
@@ -39,11 +38,12 @@ sendMessage = async () => {
     let chat_text_field = document.getElementById('chat_input_text')
     const user_input = chat_text_field.value
     addUserMessage(marked.parse(user_input))
-    chat_text_field.value = ''
+    chat_text_field.value = ""
     setLoading(true)
     chat_history = document.getElementById("chat_history")
     chat_history.scrollTop = chat_history.scrollHeight;
-        // Send a message to node, which forwards to llm-service to get the response from the chatbot
+
+    // Send a message to node, which forwards to llm-service to get the response from the chatbot
     try{
         res = await fetch('/send_message', {
             method: 'POST',
@@ -73,7 +73,6 @@ sendMessage = async () => {
 window.addEventListener('keydown', (event) => {
     if(event.key == "Enter" && !event.shiftKey){
         sendMessage()
-
     }
 })
 
@@ -109,3 +108,20 @@ initialLoadMessages = () => {
     allChats = []
     chat_box.value = messageLog.join('\n')
 }
+
+let workouts = [
+    {
+        name: "backday",
+        volume: 3000,
+        date: Date.now(),
+        exercises: [
+            {name: "lat pulldowns", reps: 3, weight: 90},
+            {name: "lat pulldowns", reps: 3, weight: 90},
+            {name: "lat pulldowns", reps: 3, weight: 90},
+            {name: "Dumbbell row", reps: 10, weight: 27.5},
+            {name: "Dumbbell row", reps: 10, weight: 27.5},
+            {name: "Dumbbell row", reps: 10, weight: 27.5},
+            {exerciseId: "Dumbbell row", reps: 10, weight: 27.5},
+        ]
+    }
+]
