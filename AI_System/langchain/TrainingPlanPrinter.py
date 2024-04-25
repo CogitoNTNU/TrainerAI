@@ -9,7 +9,7 @@ class standard_template_training_plan_printer_parameters(BaseModel):
 @tool("pretty_training_plan_printer", args_schema=standard_template_training_plan_printer_parameters)
 def standard_template_training_plan_printer(sets: int, reps: int, exercises: list[str]) -> str:
     """
-    A function for printing a training plan in a pretty way. The function takes in sets, reps and any amount of exercieses.
+    A function for printing a training plan. This function should ALWAYS be used to print any workoutplan. The function takes in sets, reps and any amount of exercieses.
     """
     
     output: str = ""
