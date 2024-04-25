@@ -7,13 +7,13 @@ SUPER HELPFUL DOCUMENTATION
 https://python.langchain.com/docs/modules/tools/custom_tools/
 """
 
+datapath: str = "data.csv"
 class get_csv_line_paramaters(BaseModel):
-    datapath: str = Field(description="Should be the datapath to CSV-file")
     row: int = Field(description="Should be the row you want to access from the CSV-file. The rows are zero indexed")
 
 # Return direct makes the chatbot only reply with the return value of the function
 @tool("get-row-from-csv", args_schema=get_csv_line_paramaters, return_direct=True)
-def get_csv_line(datapath: str, row: int) -> str:
+def get_csv_line(row: int) -> str:
     """A function for retrevieng a row from a csv-file as a string with marked data"""
 
     dataframe = pd.read_csv(datapath, nrows=int(row) + 1)
