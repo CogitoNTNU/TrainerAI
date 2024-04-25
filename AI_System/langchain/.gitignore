@@ -4,6 +4,4 @@ venv
 chat_history.json
 */venv
 venv/
-/workout.csv
-AI_System/langchain/workout.csv
-AI_System\langchain\workout.csv
+workout.csv
