@@ -5,7 +5,7 @@ from langchain_core.tracers.context import tracing_v2_enabled
 
 chatbot = agent.TrainAiChatbot()
 def prompt_chatbot(prompt) -> str:
-    # Code for traching agent thought in langsmith
+    # Code for tracking agent thought in langsmith
     with tracing_v2_enabled(project_name="default"):
         response = chatbot.run(prompt)
     return response
