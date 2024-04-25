@@ -1,4 +1,6 @@
 .env
-__pycache__
+__pycache__/
 venv
 chat_history.json
+venv/
+/workout.csv
