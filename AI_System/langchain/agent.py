@@ -75,6 +75,7 @@ class TrainAiChatbot():
     def run(self, prompt: str) -> str:
         agent = self.create_function_agent_executor()
         output: str = agent.invoke({
+        "system": "You are a chatbot used for talking about excercise with. You have access to a plethora of functions you can use to chat with the user. You also have access to chat history.",
         "input": f"{prompt}",
         "chat_history": self.get_chat_history(),
         })["output"]        
