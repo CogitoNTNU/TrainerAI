@@ -26,13 +26,14 @@ from CustomDocumentLoader import CustomDocumentLoader
 
 # File manipulation    
 from CustomDataLoader import get_csv_line
+from WorkoutExerciseLoader import create_workout_csv, add_excercise_to_workout_plan, add_sets_to_exercise, add_reps_to_exercise, add_weight_to_exercise, add_RPE_to_exercise, add_time_to_exercise, add_rest_to_exercise, read_csv_workout
 
 # Training plan printer
 from TrainingPlanPrinter import standard_template_training_plan_printer
 
 # Test
 from langchain import hub
-from langchain.agents import AgentExecutor, create_openai_functions_agent
+from langchain.agents import AgentExecutor, create_openai_tools_agent, create_tool_calling_agent
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_openai import ChatOpenAI
 
@@ -47,6 +48,10 @@ from config import OPENAI_API_KEY
 from config import LANGSMITH_API_KEY
 
 # Running on port 3001 - request not to localhost, but to "http://llm-service:3001"
+
+#midlirtigid bare for å sette fil lokasjon, bedre løsning må bli funnet
+workouts_csv_location = "./workouts.csv"
+workout_csv_location = "./workout.csv"
 
 
 class TrainAiChatbot():
@@ -67,18 +72,18 @@ class TrainAiChatbot():
         """
         
         # The functions that the agent is able to use
-        tools = [get_csv_line, standard_template_training_plan_printer]
+        tools = [get_csv_line, standard_template_training_plan_printer, create_workout_csv, add_excercise_to_workout_plan, add_sets_to_exercise, add_reps_to_exercise, add_weight_to_exercise, add_RPE_to_exercise, add_time_to_exercise, add_rest_to_exercise, read_csv_workout]
         llm = self.llm
         prompt = self.function_agent_prompt
         # Construct the OpenAI Functions agent
-        agent = create_openai_functions_agent(llm, tools, prompt)
+        agent = create_tool_calling_agent(llm, tools, prompt)
 
         return AgentExecutor(agent=agent, tools=tools, verbose=True)
     
     def run(self, prompt: str) -> str:
         agent = self.create_function_agent_executor()
         output: str = agent.invoke({
-        "system": "You are a chatbot used for talking about excercise with. You have access to a plethora of functions you can use to chat with the user. You also have access to chat history. Especially when printing a trainging plan, you should always use the funtion you have access to; standard_template_training_plan_printer.",
+        "system": "You are a chatbot used for talking about excercise with. You have access to a plethora of functions you can use to chat with the user. You also have access to chat history. Especially when printing a trainging plan, you should always use the funtion you have access to; standard_template_training_plan_printer. workouts.csv file path is AI_System/langchain/workouts.csv and workout.csv file path is AI_System/langchain/workouts.csv",
         "input": f"{prompt}",
         "chat_history": self.get_chat_history(),
         })["output"]        
