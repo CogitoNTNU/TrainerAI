@@ -28,7 +28,7 @@ from CustomDocumentLoader import CustomDocumentLoader
 from CustomDataLoader import get_csv_line
 
 # Training plan printer
-from TrainingPlanPrinter import pretty_training_plan_printer
+from TrainingPlanPrinter import standard_template_training_plan_printer
 
 # Test
 from langchain import hub
@@ -67,7 +67,7 @@ class TrainAiChatbot():
         """
         
         # The functions that the agent is able to use
-        tools = [get_csv_line, pretty_training_plan_printer]
+        tools = [get_csv_line, standard_template_training_plan_printer]
         llm = self.llm
         prompt = self.function_agent_prompt
         # Construct the OpenAI Functions agent
