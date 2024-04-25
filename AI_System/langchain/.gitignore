@@ -6,3 +6,4 @@ chat_history.json
 venv/
 /workout.csv
 AI_System/langchain/workout.csv
+AI_System\langchain\workout.csv
