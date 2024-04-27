@@ -72,7 +72,17 @@ class TrainAiChatbot():
         """
         
         # The functions that the agent is able to use
-        tools = [get_csv_line, standard_template_training_plan_printer, create_workout_csv, add_excercise_to_workout_plan, add_sets_to_exercise, add_reps_to_exercise, add_weight_to_exercise, add_RPE_to_exercise, add_time_to_exercise, add_rest_to_exercise, read_csv_workout]
+        tools = [get_csv_line, 
+                 standard_template_training_plan_printer, 
+                 create_workout_csv, 
+                 add_excercise_to_workout_plan, 
+                 add_sets_to_exercise, 
+                 add_reps_to_exercise, 
+                 add_weight_to_exercise, 
+                 add_RPE_to_exercise, 
+                 add_time_to_exercise, 
+                 add_rest_to_exercise, 
+                 read_csv_workout]
         llm = self.llm
         prompt = self.function_agent_prompt
         # Construct the OpenAI Functions agent
@@ -83,7 +93,14 @@ class TrainAiChatbot():
     def run(self, prompt: str) -> str:
         agent = self.create_function_agent_executor()
         output: str = agent.invoke({
-        "system": "You are a chatbot used for talking about excercise with. You have access to a plethora of functions you can use to chat with the user. You also have access to chat history. Especially when printing a trainging plan, you should always use the funtion you have access to; standard_template_training_plan_printer. workouts.csv file path is AI_System/langchain/workouts.csv and workout.csv file path is AI_System/langchain/workouts.csv",
+        "system": """You are a personal trainer, helping the user to reach their fitness goals.
+        Your primary tasks are creating long-term workout plans, as well as detailed workouts for the user to execute. 
+        You have access to a plethora of functions you can use to chat with the user. 
+        You also have access to chat history. 
+        Especially when printing a trainging plan, you should always use the funtion you have access to; 
+        standard_template_training_plan_printer. 
+        workouts.csv file path is AI_System/langchain/workouts.csv and workout.csv 
+        file path is AI_System/langchain/workouts.csv""",
         "input": f"{prompt}",
         "chat_history": self.get_chat_history(),
         })["output"]        

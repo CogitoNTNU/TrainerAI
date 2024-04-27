@@ -39,6 +39,7 @@ sendMessage = async () => {
     const user_input = chat_text_field.value
     addUserMessage(marked.parse(user_input))
     chat_text_field.value = ""
+    console.log(chat_text_field.value)
     setLoading(true)
     chat_history = document.getElementById("chat_history")
     chat_history.scrollTop = chat_history.scrollHeight;
@@ -70,7 +71,7 @@ sendMessage = async () => {
 
 }
 
-window.addEventListener('keydown', (event) => {
+window.addEventListener('keyup', (event) => {
     if(event.key == "Enter" && !event.shiftKey){
         sendMessage()
     }
