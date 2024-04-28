@@ -130,7 +130,7 @@ class add_rest_to_exercise_paramaters(BaseModel):
 def add_rest_to_exercise(rest):
     """adds rest time time in minutes to an exercise based on the RPE of the excerscie in the workout plan to the workout.csv file"""
     workout = pd.read_csv(workout_csv_location,index_col="exercise")  #åpner workout.csv
-    workout.loc[set_exercise,"rest"] = rest + " min"
+    workout.loc[set_exercise,"rest"] = "%s min" % rest   #legger til rest til øvelsen
     workout.to_csv(workout_csv_location)
 
 class workout_csv_paramaters(BaseModel):
@@ -155,7 +155,7 @@ class add_time_to_exercise_paramaters(BaseModel):
 def add_time_to_exercise(time):
     """adds time in minutes to an exercise in the workout plan to the workout.csv file"""
     workout = pd.read_csv(workout_csv_location,index_col="exercise")  #åpner workout.csv
-    workout.loc[set_exercise,"time"] = time + " min"
+    workout.loc[set_exercise,"time"] = "%s min" % time
     workout.to_csv(workout_csv_location)
 
 
