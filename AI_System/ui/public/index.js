@@ -29,17 +29,12 @@ let setLoading = (newLoadingVal) => {
     loading = newLoadingVal
 }
 
-let checkbox = document.getElementById("checkbox")
-checkbox.addEventListener('click', ()=>{
-    console.log(checkbox.checked)
-})
 // When user sends a message (pressing send button) this funciton runs
 sendMessage = async () => {
     let chat_text_field = document.getElementById('chat_input_text')
     const user_input = chat_text_field.value
     addUserMessage(marked.parse(user_input))
     chat_text_field.value = ""
-    console.log(chat_text_field.value)
     setLoading(true)
     chat_history = document.getElementById("chat_history")
     chat_history.scrollTop = chat_history.scrollHeight;

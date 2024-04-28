@@ -2,7 +2,7 @@ from langchain.pydantic_v1 import BaseModel, Field
 from langchain.tools import tool
 
 class standard_template_training_plan_printer_parameters(BaseModel):
-    sets: int = Field(description="The amount of sets in the excercise")
+    sets: int = Field(description="The amount of sets in the exercise")
     reps: int = Field(description="The amount of reps")
     exercises: list[str] = Field(description="A list of the name of each exercise")
 
@@ -15,8 +15,9 @@ def standard_template_training_plan_printer(sets: int, reps: int, exercises: lis
     output: str = ""
     count: int = 1
 
-    for exercice in exercises:
-        output += f"{count}. {exercice}: {sets} sets x {reps} reps"
+    for exercise in exercises:
+        print(exercise)
+        output += f"{count}. {exercise}: {sets} sets x {reps} reps"
         count += 1
 
     return output

@@ -48,7 +48,7 @@ class create_workout_csv_parameters(BaseModel):
 #mulig å endre denne til å lage en ny csv fil med egenartet navn
 @tool("create_workout_csv", args_schema=create_workout_csv_parameters, return_direct=False)
 def create_workout_csv(datapath: str):
-    """this tool MUST be used before add_excercise_to_workout_plan !!! this tool creates a csv file with the columns excercise, sets, reps, vekt, RPE and explenation to save a workout in"""
+    """this tool MUST be used before add_excercise_to_workout_plan !!! this tool creates a csv file with the columns excercise, sets, reps, vekt, RPE and explanation to save a workout in"""
     workout = pd.DataFrame({"exercise":[],
                             "sets":[],
                             "reps":[],
@@ -56,7 +56,7 @@ def create_workout_csv(datapath: str):
                             "rest":[],
                             "RPE":[],
                             "time":[],
-                            "explenation":[]})
+                            "explanation":[]})
     workout.set_index("exercise",inplace=True)
     workout.to_csv(workout_csv_location)
     datapath = datapath
@@ -67,12 +67,12 @@ class add_excercise_to_workout_plan_parameters(BaseModel):
 
 @tool("add_excercise_to_workout_plan",args_schema=add_excercise_to_workout_plan_parameters, return_direct=False)
 def add_excercise_to_workout_plan(exercise:str):
-    """this tool must be used before you can add sets, reps, weight, rest, time, RPE!!! this adds an exercise to the workout plan with the explenation from workouts.csv and sets it to the workout.csv file"""
+    """this tool must be used before you can add sets, reps, weight, rest, time, RPE!!! this adds an exercise to the workout plan with the explanation from workouts.csv and sets it to the workout.csv file"""
     workouts = pd.read_csv(workouts_csv_location)  #åpner workouts.csv
     workouts.set_index("exercise",inplace=True)           #setter index til å være "exercise"
-    exercise_to_add = workouts.loc[exercise,"explenation"]  #henter ut forklaringen til øvelsen
+    exercise_to_add = workouts.loc[exercise,"explanation"]  #henter ut forklaringen til øvelsen
     workout = pd.read_csv(workout_csv_location,index_col="exercise") #åpner workout.csv
-    workout.loc[exercise,"explenation"] = exercise_to_add           #legger til forklaringen til øvelsen
+    workout.loc[exercise,"explanation"] = exercise_to_add           #legger til forklaringen til øvelsen
     workout.rename(index={len(workout):exercise},inplace=True)    #endrer index til å være øvelsen
     workout.to_csv(workout_csv_location)       #lagrer workout.csv
 
