@@ -64,7 +64,7 @@ def add_exercise_to_workout(workout_id:str, exercise:str):
     # workout.rename(index={len(workout):exercise},inplace=True)    #endrer index til å være øvelsen
     # workout.to_csv(workout_csv_location)       #lagrer workout.csv
 
-    return "Added workout!!!!!!"
+    return "Added %s to workout %s" % (exercise, workout_id)
 
 
 """
