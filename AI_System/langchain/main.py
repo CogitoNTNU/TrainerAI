@@ -11,7 +11,7 @@ def prompt_chatbot(prompt) -> str:
     return response
 
 #create_exercises_vectorDB()
-create_exercises_vectorDB
+create_exercises_vectorDB()
 # Flask Stuff
 
 app = Flask(__name__)

@@ -16,20 +16,17 @@ def create_exercises_vectorDB():
     loaded_exercises = exercises.load()
     embeddings = OpenAIEmbeddings()
     exercises = FAISS.from_documents(loaded_exercises, embeddings)
-    os.chdir("./vectorDB")
-    exercises.save_local("exercises")
-
+    exercises.save_local("vector_exercises")
 
 class search_exercises_vectorDB_parameters(BaseModel):
-    search_query: str = Field("The search query is the excersice, equipment, trainingtype etc, muscle group you want to search for in the vector database")
+    search_query: str = Field("String to search for similar exercises in a vector DB")
 @tool("search_exercises_vectorDB", args_schema=search_exercises_vectorDB_parameters)
 def search_exercises_vectorDB(search_query: str):
-    """A function for searching for exercises in the vector database"""
+    """A function for searching for exercises, and exercise details in the vector database. When looking for exercises to create workouts, or details about exercises, use this function. You can find required equipment, and muscle groups."""
     if search_query == None:
         return search_query == "exercises"
     embeddings = OpenAIEmbeddings()
     query = search_query
-    os.chdir("./vectorDB")
-    new_exercises = FAISS.load_local("exercises",embeddings)
+    new_exercises = FAISS.load_local("vector_exercises",embeddings)
     results = new_exercises.similarity_search(query,10)
     return results
