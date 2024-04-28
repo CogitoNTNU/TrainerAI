@@ -27,6 +27,7 @@ from CustomDocumentLoader import CustomDocumentLoader
 # File manipulation    
 from agent_functions.CustomDataLoader import get_csv_line
 from agent_functions.WorkoutExerciseLoader import create_workout_csv, add_exercise_to_workout_plan, add_sets_to_exercise, add_reps_to_exercise, add_weight_to_exercise, add_RPE_to_exercise, add_time_to_exercise, add_rest_to_exercise, read_csv_workout, select_exercise
+from agent_functions.CSVLoadandRead import load_csv
 
 # Training plan printer
 from agent_functions.TrainingPlanPrinter import standard_template_training_plan_printer
@@ -90,7 +91,9 @@ class TrainAiChatbot():
                  add_rest_to_exercise,
                  # List all existing workouts
                  list_all_existing_workouts,
-                 ]
+                 read_csv_workout,
+                 select_exercise,
+                 load_csv,]
         
         llm = self.llm
         prompt = self.function_agent_prompt
