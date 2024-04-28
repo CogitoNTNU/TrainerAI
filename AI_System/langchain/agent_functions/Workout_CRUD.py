@@ -2,6 +2,7 @@ import pandas as pd
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.tools import BaseTool, StructuredTool, tool
 from langchain_community.document_loaders.csv_loader import CSVLoader
+import os
 
 # importable tools from workout excercise loader
 # set_workouts_csv_location
@@ -17,17 +18,6 @@ from langchain_community.document_loaders.csv_loader import CSVLoader
 
 from datetime import datetime
 unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
-
-# TODO: Make this better
-class read_workout_parameters(BaseModel):   
-    workout_id: str = Field(description="ID of the workout you want to load, read or display. Gives you workout details. It's a date-time string.")
-@tool("read_workout", args_schema=read_workout_parameters, return_direct=False)
-def read_csv_workout(workout_id:str):
-    """reads and outputs the workout file as a print"""
-    path = "./workouts/" + workout_id
-    loader = CSVLoader(path)
-    loaded_csv = loader.load()
-    return loaded_csv
 
 @tool("create_new_workout", return_direct=False)
 def create_workout(datapath: str):
@@ -45,15 +35,31 @@ def create_workout(datapath: str):
     now = datetime.now()
     formatted_date_time = now.strftime("%Y-%m-%d_%H-%M-%S")
     workout_id = formatted_date_time
-    workout_file_path = "./workouts/" + workout_id
+    workout_file_path = "./workouts/" + workout_id + ".csv"
     workout.to_csv(workout_file_path)
     return ("created workout at " + workout_file_path + " successfully! It's ID is: " + workout_id)
 
-class add_exercise_to_workout_parameters(BaseModel):
+class read_workout_parameters(BaseModel):   
+    workout_id: str = Field(description="ID of the workout you want to load, read or display. Gives you workout details. It's a date-time string.")
+@tool("read_workout", args_schema=read_workout_parameters, return_direct=False)
+def read_workout(workout_id:str):
+    """reads and outputs the workout file as a print"""
+    path = "./workouts/" + workout_id + ".csv"
+    loader = CSVLoader(path)
+    loaded_csv = loader.load()
+    return loaded_csv
+
+class update_workout_parameters(BaseModel):
     workout_id: str = Field(description="The ID of the workout as a string. The ID is the filename of the workout, which is the date and time the workout was recoreded.")
     exercise: str = Field(description="The exercise you want to add to the workout plan.")
-@tool("add_exercise_to_workout", args_schema=add_exercise_to_workout_parameters, return_direct=False)
-def add_exercise_to_workout(workout_id:str, exercise:str):
+    sets: str = Field()
+    reps: str = Field()
+    weight: str = Field()
+    rest: str = Field()
+    time: str = Field()
+    RPE: str = Field()
+@tool("update_workout", args_schema=update_workout_parameters, return_direct=False)
+def update_workout(workout_id:str, exercise:str):
     "This function lets you add an exercise to a specific workout. It requires the workout ID/Name, and the exercise you want to add."
     # Hent kjente øvelser fra vektordatabase - Basert på "exercise"
     # foundExercise = ["bench","Pectoralis" "major","Triceps","benchpress"]
@@ -67,6 +73,21 @@ def add_exercise_to_workout(workout_id:str, exercise:str):
     # workout.to_csv(workout_csv_location)       #lagrer workout.csv
 
     return "Added %s to workout %s" % (exercise, workout_id)
+
+class delete_workout_parameters(BaseModel):   
+    workout_id: str = Field(description="ID of the workout you want to delete. It's a date-time string. You should list all workouts to see if the deletion was successfull.")
+@tool("delete_workout", args_schema=delete_workout_parameters, return_direct=False)
+def delete_workout(workout_id:str):
+    """Deletes the workout CSV file for the given workout ID."""
+    path = "./workouts/" + workout_id + ".csv"  # Ensure the file has a .csv extension
+    try:
+        os.remove(path)  # Attempt to remove the file
+        return "Workout deleted: %s" % workout_id
+    except FileNotFoundError:
+        return "File not found: %s" % path
+    except Exception as e:
+        return "An error occurred: %s" % str(e)
+    
 
 
 """
