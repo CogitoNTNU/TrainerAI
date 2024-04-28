@@ -19,8 +19,11 @@ import os
 from datetime import datetime
 unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
 
-@tool("create_new_workout", return_direct=False)
-def create_workout(datapath: str):
+class create_new_workout_parameters(BaseModel):   
+    date: str = Field(description="The date when the workout should start. This could be now, in the future or in the past.")
+    time: str = Field(description="The time when the workout should start. This could be now, in the future or in the past.")
+@tool("create_new_workout", args_schema=create_new_workout_parameters, return_direct=False)
+def create_workout(date: str, time: str):
     """This tool creates a new csv file for a new workout. With the columns exercise, sets, reps, vekt, RPE and explanation for exercises."""
     workout = pd.DataFrame({"exercise":[],
                             "sets":[],
@@ -32,8 +35,8 @@ def create_workout(datapath: str):
                             "explanation":[]})
     workout.set_index("exercise",inplace=True)
     # Get current date and time
-    now = datetime.now()
-    formatted_date_time = now.strftime("%Y%m%d_%H%M%S_%f")
+    time = f"{date} {time}"
+    formatted_date_time = time.strftime("%Y%m%d_%H%M%S_%f")
     workout_id = formatted_date_time
     workout_file_path = "./workouts/" + workout_id + ".csv"
     workout.to_csv(workout_file_path)
