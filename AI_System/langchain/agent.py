@@ -82,8 +82,6 @@ class TrainAiChatbot():
                  read_csv_workout,
                  add_exercise_to_workout,
                  list_all_existing_workouts,
-                 read_csv_workout,
-                 load_csv,
                  get_todays_time]
         
 

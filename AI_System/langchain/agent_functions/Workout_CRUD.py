@@ -1,6 +1,7 @@
 import pandas as pd
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.tools import BaseTool, StructuredTool, tool
+from langchain_community.document_loaders.csv_loader import CSVLoader
 
 # importable tools from workout excercise loader
 # set_workouts_csv_location
@@ -19,13 +20,14 @@ unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
 
 # TODO: Make this better
 class read_workout_parameters(BaseModel):   
-    workout_id: str = Field(description="ID of the workout you want to read. It's a date-time string.")
+    workout_id: str = Field(description="ID of the workout you want to load, read or display. Gives you workout details. It's a date-time string.")
 @tool("read_workout", args_schema=read_workout_parameters, return_direct=False)
 def read_csv_workout(workout_id:str):
     """reads and outputs the workout file as a print"""
     path = "./workouts/" + workout_id
-    workout = pd.read_csv(path)
-    return print(workout)
+    loader = CSVLoader(path)
+    loaded_csv = loader.load()
+    return loaded_csv
 
 @tool("create_new_workout", return_direct=False)
 def create_workout(datapath: str):
