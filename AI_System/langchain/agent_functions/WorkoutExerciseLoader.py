@@ -78,10 +78,10 @@ def add_excercise_to_workout_plan(exercise:str):
 
 
 class set_exercise_paramaters(BaseModel):
-    exercise: str = Field(description="Should be the exercise you want to add to the workout plan, this input should be a string with the name of the excercise from workouts.csv, it row/index should be the same as in the workout.csv file")
-@tool("set_excercise_to_add", args_schema=set_exercise_paramaters, return_direct=False)
-def set_excercise_to_add(exercise):
-    """this must be used befor add sets, reps, weight, RPE, time and rest!!! the exercise_to_add_to_the_workout plan as a global variable, this is used to add sets, reps, weight, RPE, time and rest to the exercise in the workout plan to the workout.csv file"""
+    exercise: str = Field(description="Should be the exercise you're modifying. This input should be a string with the name of the excercise from workouts.csv, where row/index should be the same as in the workout.csv file")
+@tool("select_exercise", args_schema=set_exercise_paramaters, return_direct=False)
+def select_exercise(exercise):
+    """Use this function first when modifying, creating or deleting exercises!"""
     global set_exercise
     set_exercise = exercise
 
@@ -94,7 +94,7 @@ class add_sets_to_excercise_paramaters(BaseModel):
 def add_sets_to_exercise(sets:str):
     """adds sets to an exercise in the workout plan to the workout.csv file"""
     workout = pd.read_csv(workout_csv_location,index_col="exercise")  #åpner workout.csv
-    workout.loc[set_exercise,"sets"] =   sets   #legger til sets til øvelsen
+    workout.loc[set_exercise,"sets"] = sets   #legger til sets til øvelsen
     workout.to_csv(workout_csv_location)  #lagrer workout.csv
 
 class add_reps_to_exercise_paramaters(BaseModel):
