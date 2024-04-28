@@ -45,13 +45,15 @@ def create_workout(date: str, time: str):
     return ("created workout at " + workout_file_path + " successfully! It's ID is: " + workout_id)
 
 class read_workout_parameters(BaseModel):   
-    workout_id: str = Field(description="ID of the workout you want to load, read or display. Gives you workout details. It's a date-time string.")
+    workout_id: str = Field(description="ID of the workout you want to load, read or display. Gives you workout details. It's a date-time string. Remember to ALWAYS show the user the exercise name, reps and weight.")
 @tool("read_workout", args_schema=read_workout_parameters, return_direct=False)
 def read_workout(workout_id:str):
     """reads and outputs the workout file as a print"""
     path = "./workouts/" + workout_id + ".csv"
     loader = CSVLoader(path)
     loaded_csv = loader.load()
+    if(len(loaded_csv) < 1):
+        return "The workout is empty. Sorry."
     return loaded_csv
 
 class add_exercise_to_workout_parameters(BaseModel):
@@ -62,20 +64,22 @@ class add_exercise_to_workout_parameters(BaseModel):
     weight: str = Field(description="The amount of weight to lift for this exercise")
     rest: str = Field(description="How long you should rest after doing this exercise.")
     time: str = Field(description="The time it takes/took you to do this exercise.")
-    RPE: str = Field(description="The rate of percieved exhaustion from the user, on this exercise. Ask the user about this.")
+    explanation: str = Field(description="The explanation of the exercise. Found by querying for the exercise.")
 @tool("add_exercise_to_workout", args_schema=add_exercise_to_workout_parameters, return_direct=False)
-def add_exercise_to_workout(workout_id:str, exercise:str, sets:str, reps:str, weight:str, rest:str, time:str, RPE:str):
-    "This function lets you add an exercise to a specific workout. It requires the workout ID/Name, and the exercise you want to add. Ask the user for information you don't have, in hopes of getting values like RPE."
-    # Hent kjente øvelser fra vektordatabase - Basert på "exercise"
-    # foundExercise = ["bench","Pectoralis" "major","Triceps","benchpress"]
-
+def add_exercise_to_workout(workout_id:str, exercise:str, sets:str, reps:str, weight:str, rest:str, time:str, explanation:str):
+    "This function lets you add an exercise to a specific workout. It requires the workout ID/Name, and the exercise you want to add. RPE must be set by the user. Remember to ALWAYS query an exercise, using search_exercises_vectorDB before running this function, so you're sure you have the right data."
     # last inn workout
-    # workout = pd.read_csv("./workouts/"+workout_id, index_col="exercise") # loads workout csv.
-
+    csvLocation = "./workouts/"+workout_id+".csv"
+    workout = pd.read_csv(csvLocation, index_col="exercise") # loads workout csv.
     # Legg til øvelsen i workout
-    # workout.loc[exercise,"explanation"] = foundExercise           #legger til forklaringen til øvelsen
-    # workout.rename(index={len(workout):exercise},inplace=True)    #endrer index til å være øvelsen
-    # workout.to_csv(workout_csv_location)       #lagrer workout.csv
+    workout.loc[exercise,"explanation"] = explanation
+    workout.loc[exercise,"sets"] = sets
+    workout.loc[exercise,"reps"] = reps
+    workout.loc[exercise,"weight"] = weight
+    workout.loc[exercise,"rest"] = rest
+    workout.loc[exercise,"time"] = time
+    workout.rename(index={len(workout):exercise},inplace=True)    #endrer index til å være øvelsen
+    workout.to_csv(csvLocation)       #lagrer workout.csv
 
     return "Added %s to workout %s" % (exercise, workout_id)
 

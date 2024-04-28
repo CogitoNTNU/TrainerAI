@@ -6,9 +6,13 @@ from agent_functions.VectorDBCSV import create_exercises_vectorDB
 chatbot = agent.TrainAiChatbot()
 def prompt_chatbot(prompt) -> str:
     # Code for tracking agent thought in langsmith
-    with tracing_v2_enabled(project_name="default"):
-        response = chatbot.run(prompt)
-    return response
+    try:
+        with tracing_v2_enabled(project_name="default"):
+            response = chatbot.run(prompt)
+        return response
+    except:
+        return 'Something went wrong.'
+
 
 #create_exercises_vectorDB()
 create_exercises_vectorDB()
