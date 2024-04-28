@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 import agent
 from langchain_core.tracers.context import tracing_v2_enabled
-
+from agent_functions.VectorDBCSV import create_exercises_vectorDB
 # AI Stuff
 chatbot = agent.TrainAiChatbot()
 def prompt_chatbot(prompt) -> str:
@@ -10,7 +10,8 @@ def prompt_chatbot(prompt) -> str:
         response = chatbot.run(prompt)
     return response
 
-
+#create_exercises_vectorDB()
+create_exercises_vectorDB
 # Flask Stuff
 
 app = Flask(__name__)
