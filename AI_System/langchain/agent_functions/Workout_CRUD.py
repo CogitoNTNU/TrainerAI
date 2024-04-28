@@ -35,8 +35,10 @@ def create_workout(date: str, time: str):
                             "explanation":[]})
     workout.set_index("exercise",inplace=True)
     # Get current date and time
-    time = f"{date} {time}"
-    formatted_date_time = time.strftime("%Y%m%d_%H%M%S_%f")
+    combined_datetime = f"{date} {time}"
+    datetime_object = datetime.strptime(combined_datetime, "%Y-%m-%d %H:%M")
+    # Format the datetime object to create a unique workout ID
+    formatted_date_time = datetime_object.strftime("%Y%m%d_%H%M%S_%f")
     workout_id = formatted_date_time
     workout_file_path = "./workouts/" + workout_id + ".csv"
     workout.to_csv(workout_file_path)

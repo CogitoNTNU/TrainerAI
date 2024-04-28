@@ -24,8 +24,7 @@ from langchain_core.messages import HumanMessage, AIMessage
 # Custom modules
 from CustomDocumentLoader import CustomDocumentLoader
 
-# File manipulation    
-from agent_functions.CustomDataLoader import get_csv_line
+# File manipulation
 from agent_functions.Workout_CRUD import create_workout, read_workout, add_exercise_to_workout, delete_workout, remove_exercise_from_workout
 from agent_functions.CSVLoadandRead import load_csv
 
