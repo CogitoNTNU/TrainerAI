@@ -14,6 +14,9 @@ from langchain.tools import BaseTool, StructuredTool, tool
 # add_time_to_exercise
 # add_rest_to_exercise
 
+from datetime import datetime
+unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
+
 workouts_csv_location = "./workouts.csv"
 
 workout_csv_location = "./workout.csv"
@@ -27,21 +30,13 @@ def read_csv_workout(workout_csv_locationforlol:str):
     workout = pd.read_csv(workout_csv_location)
     return print(workout)
 
-""" class set_workouts_csv_location_paramaters(BaseModel):
-    datapath: str = Field(description="Should be the datapath to workouts.csv CSV-file")
-@tool("set_workouts_csv_location", args_schema=set_workouts_csv_location_paramaters, return_direct=False)
-def set_workouts_csv_location(datapath: str):
-    """"This tool should must be used before add_excercise_to_workout_plan, the datapath to workouts.csv global variable""""
-    global workouts_csv_location
-    workouts_csv_location = datapath
-
 class set_workout_csv_location_paramaters(BaseModel):
-    datapath: str = Field(description="Should be the datapath to workout.csv CSV-file")
+    workout_id: str = Field(description="This function sets the ID of the workout being manipulated. In Unix time format. Use it before modifying a new workout.")
 @tool("set_workout_csv_location", args_schema=set_workout_csv_location_paramaters, return_direct=False)
-def set_workout_csv_location(datapath: str):
-    """"this MUST be used create_workout_csv !!! this tool sets the datapath to workout.csv global variable""""
-    global workout_csv_location
-    workout_csv_location = datapath """
+def set_workout_csv_location(workout_id: str):
+    """"this MUST be used create_workout_csv !!! this tool sets the datapath to workout.csv global variable"""
+    # Set workout_csv_location to the workout currently being manipulated
+    workout_csv_location = './workouts/' + workout_id
 
 class create_workout_csv_parameters(BaseModel):
     datapath: str = Field(description="Should be the datapath to workout.csv CSV-file that is set by set-workout-csv-location")
@@ -81,7 +76,7 @@ class set_exercise_paramaters(BaseModel):
     exercise: str = Field(description="Should be the exercise you're modifying. This input should be a string with the name of the excercise from workouts.csv, where row/index should be the same as in the workout.csv file")
 @tool("select_exercise", args_schema=set_exercise_paramaters, return_direct=False)
 def select_exercise(exercise):
-    """Use this function first when modifying, creating or deleting exercises!"""
+    """This function selects the exercise you're going to modify. Run this first. Without it, all other functions won't work. Run this before each new exercise you're modifying."""
     global set_exercise
     set_exercise = exercise
 

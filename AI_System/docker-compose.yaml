@@ -27,19 +27,19 @@ services:
     ports:
       - "3001:3001"
 
-  timeseries-service:
-    build: ./timeseries
-    env_file: .env
-    restart: unless-stopped
-    environment:
-      - FLASK_ENV=development # Autorestarts flask when code changes are detected
-    volumes:
-      - ./timeseries:/app  # Mount the application code
-    networks:
-      - backend
-    stop_signal: SIGINT
-    ports:
-      - "3002:3002"
+#  timeseries-service:
+#    build: ./timeseries
+#    env_file: .env
+#    restart: unless-stopped
+#    environment:
+#      - FLASK_ENV=development # Autorestarts flask when code changes are detected
+#    volumes:
+#      - ./timeseries:/app  # Mount the application code
+#    networks:
+#      - backend
+#    stop_signal: SIGINT
+#    ports:
+#      - "3002:3002"
 
 #  database-service:
 #    image: mongo:latest

@@ -31,6 +31,9 @@ from agent_functions.WorkoutExerciseLoader import create_workout_csv, add_exerci
 # Training plan printer
 from agent_functions.TrainingPlanPrinter import standard_template_training_plan_printer
 
+# List workouts
+from agent_functions.listAllWorkoutFiles import list_all_existing_workouts
+
 # Test
 from langchain import hub
 from langchain.agents import AgentExecutor, create_openai_tools_agent, create_tool_calling_agent
@@ -73,16 +76,21 @@ class TrainAiChatbot():
         
         # The functions that the agent is able to use
         tools = [standard_template_training_plan_printer, 
-                 create_workout_csv, 
-                 add_exercise_to_workout_plan, 
+                 # Workout functions
+                 create_workout_csv,
+                 add_exercise_to_workout_plan,
+                 read_csv_workout,
+                # Modifications to exercises in a workout
+                 select_exercise,
                  add_sets_to_exercise,
                  add_reps_to_exercise,
                  add_weight_to_exercise,
                  add_RPE_to_exercise,
                  add_time_to_exercise,
                  add_rest_to_exercise,
-                 read_csv_workout,
-                 select_exercise,]
+                 # List all existing workouts
+                 list_all_existing_workouts,
+                 ]
         
         llm = self.llm
         prompt = self.function_agent_prompt
