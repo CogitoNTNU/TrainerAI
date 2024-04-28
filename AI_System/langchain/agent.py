@@ -37,7 +37,7 @@ from agent_functions.generalFunctions import get_todays_time
 from agent_functions.VectorDBCSV import search_exercises_vectorDB
 # Test
 from langchain import hub
-from langchain.agents import AgentExecutor, create_openai_tools_agent, create_tool_calling_agent
+from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_openai import ChatOpenAI
 
