@@ -33,7 +33,7 @@ def create_workout(datapath: str):
     workout.set_index("exercise",inplace=True)
     # Get current date and time
     now = datetime.now()
-    formatted_date_time = now.strftime("%Y-%m-%d_%H-%M-%S")
+    formatted_date_time = now.strftime("%Y%m%d_%H%M%S_%f")
     workout_id = formatted_date_time
     workout_file_path = "./workouts/" + workout_id + ".csv"
     workout.to_csv(workout_file_path)
@@ -49,18 +49,18 @@ def read_workout(workout_id:str):
     loaded_csv = loader.load()
     return loaded_csv
 
-class update_workout_parameters(BaseModel):
+class add_exercise_to_workout_parameters(BaseModel):
     workout_id: str = Field(description="The ID of the workout as a string. The ID is the filename of the workout, which is the date and time the workout was recoreded.")
     exercise: str = Field(description="The exercise you want to add to the workout plan.")
-    sets: str = Field()
-    reps: str = Field()
-    weight: str = Field()
-    rest: str = Field()
-    time: str = Field()
-    RPE: str = Field()
-@tool("update_workout", args_schema=update_workout_parameters, return_direct=False)
-def update_workout(workout_id:str, exercise:str):
-    "This function lets you add an exercise to a specific workout. It requires the workout ID/Name, and the exercise you want to add."
+    sets: str = Field(description="The amount of sets to do for this exercise")
+    reps: str = Field(description="The amount of repetitions to do this exercise")
+    weight: str = Field(description="The amount of weight to lift for this exercise")
+    rest: str = Field(description="How long you should rest after doing this exercise.")
+    time: str = Field(description="The time it takes/took you to do this exercise.")
+    RPE: str = Field(description="The rate of percieved exhaustion from the user, on this exercise. Ask the user about this.")
+@tool("add_exercise_to_workout", args_schema=add_exercise_to_workout_parameters, return_direct=False)
+def add_exercise_to_workout(workout_id:str, exercise:str, sets:str, reps:str, weight:str, rest:str, time:str, RPE:str):
+    "This function lets you add an exercise to a specific workout. It requires the workout ID/Name, and the exercise you want to add. Ask the user for information you don't have, in hopes of getting values like RPE."
     # Hent kjente øvelser fra vektordatabase - Basert på "exercise"
     # foundExercise = ["bench","Pectoralis" "major","Triceps","benchpress"]
 
@@ -73,6 +73,26 @@ def update_workout(workout_id:str, exercise:str):
     # workout.to_csv(workout_csv_location)       #lagrer workout.csv
 
     return "Added %s to workout %s" % (exercise, workout_id)
+
+class remove_exercise_from_workout_parameters(BaseModel):
+    workout_id: str = Field(description="The ID of the workout as a string. The ID is the filename of the workout, which is the date and time the workout was recoreded.")
+    exercise: str = Field(description="The exercise name you want to REMOVE from the workout plan.")
+@tool("remove_exercise_from_workout", args_schema=remove_exercise_from_workout_parameters, return_direct=False)
+def remove_exercise_from_workout(workout_id:str, exercise:str):
+    "This function lets you REMOVE an exercise from a specific workout. It requires the workout ID/Name, and the exercise you want to remove."
+    # Hent kjente øvelser fra vektordatabase - Basert på "exercise"
+    # foundExercise = ["bench","Pectoralis" "major","Triceps","benchpress"]
+
+    # last inn workout
+    # workout = pd.read_csv("./workouts/"+workout_id, index_col="exercise") # loads workout csv.
+
+    # Legg til øvelsen i workout
+    # workout.loc[exercise,"explanation"] = foundExercise           #legger til forklaringen til øvelsen
+    # workout.rename(index={len(workout):exercise},inplace=True)    #endrer index til å være øvelsen
+    # workout.to_csv(workout_csv_location)       #lagrer workout.csv
+
+    return "Remove %s from workout %s" % (exercise, workout_id)
+
 
 class delete_workout_parameters(BaseModel):   
     workout_id: str = Field(description="ID of the workout you want to delete. It's a date-time string. You should list all workouts to see if the deletion was successfull.")

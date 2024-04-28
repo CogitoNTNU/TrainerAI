@@ -26,7 +26,7 @@ from CustomDocumentLoader import CustomDocumentLoader
 
 # File manipulation    
 from agent_functions.CustomDataLoader import get_csv_line
-from agent_functions.Workout_CRUD import create_workout, read_workout, update_workout, delete_workout
+from agent_functions.Workout_CRUD import create_workout, read_workout, add_exercise_to_workout, delete_workout
 from agent_functions.CSVLoadandRead import load_csv
 
 # Training plan printer
@@ -80,7 +80,7 @@ class TrainAiChatbot():
         tools = [standard_template_training_plan_printer, 
                  create_workout,
                  read_workout,
-                 update_workout,
+                 add_exercise_to_workout,
                  list_all_existing_workouts,
                  get_todays_time,
                  delete_workout]
