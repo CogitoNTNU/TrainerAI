@@ -26,14 +26,15 @@ from CustomDocumentLoader import CustomDocumentLoader
 
 # File manipulation    
 from agent_functions.CustomDataLoader import get_csv_line
-from agent_functions.WorkoutExerciseLoader import create_workout_csv, add_exercise_to_workout_plan, add_sets_to_exercise, add_reps_to_exercise, add_weight_to_exercise, add_RPE_to_exercise, add_time_to_exercise, add_rest_to_exercise, read_csv_workout, select_exercise
+from agent_functions.Workout_CRUD import create_workout, add_exercise_to_workout, read_csv_workout
 from agent_functions.CSVLoadandRead import load_csv
 
 # Training plan printer
 from agent_functions.TrainingPlanPrinter import standard_template_training_plan_printer
 
-# List workouts
+# Functions
 from agent_functions.listAllWorkoutFiles import list_all_existing_workouts
+from agent_functions.generalFunctions import get_todays_time
 
 # Test
 from langchain import hub
@@ -77,24 +78,13 @@ class TrainAiChatbot():
         
         # The functions that the agent is able to use
         tools = [standard_template_training_plan_printer, 
-                 # Workout functions
-                 create_workout_csv,
-                 add_exercise_to_workout_plan,
+                 create_workout,
                  read_csv_workout,
-                # Modifications to exercises in a workout
-                 select_exercise,
-                 add_sets_to_exercise,
-                 add_reps_to_exercise,
-                 add_weight_to_exercise,
-                 add_RPE_to_exercise,
-                 add_time_to_exercise,
-                 add_rest_to_exercise,
-                 # List all existing workouts
+                 add_exercise_to_workout,
                  list_all_existing_workouts,
-                 read_csv_workout,
-                 select_exercise,
-                 load_csv,]
+                 get_todays_time]
         
+
         llm = self.llm
         prompt = self.function_agent_prompt
         # Construct the OpenAI Functions agent
