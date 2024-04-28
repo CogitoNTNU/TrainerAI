@@ -12,12 +12,14 @@ OPENAI_API_KEY: str = os.getenv(key="OPENAI_API_KEY")
 
 
 def create_exercises_vectorDB():
+    current_dir = os.getcwd()
     exercises = CSVLoader(file_path="./exercises.csv")
     loaded_exercises = exercises.load()
     embeddings = OpenAIEmbeddings()
     exercises = FAISS.from_documents(loaded_exercises, embeddings)
     os.chdir("./vectorDB")
     exercises.save_local("exercises")
+    os.chdir(current_dir)
 
 
 class search_exercises_vectorDB_parameters(BaseModel):
@@ -29,7 +31,9 @@ def search_exercises_vectorDB(search_query: str):
         return search_query == "exercises"
     embeddings = OpenAIEmbeddings()
     query = search_query
+    current_dir = os.getcwd()
     os.chdir("./vectorDB")
     new_exercises = FAISS.load_local("exercises",embeddings)
     results = new_exercises.similarity_search(query,10)
+    os.chdir(current_dir)
     return results
