@@ -62,11 +62,11 @@ def create_workout_csv(datapath: str):
     datapath = datapath
     return "workout.csv created successfully"
 
-class add_excercise_to_workout_plan_parameters(BaseModel):
+class add_exercise_to_workout_plan_parameters(BaseModel):
     exercise: str = Field(description="Should be the exercise you want to add to the workout plan and must be in lower case, this input should be a string with the name of the excercise from workouts.csv, it row/index should be the same as in the workout.csv file") 
 
-@tool("add_excercise_to_workout_plan",args_schema=add_excercise_to_workout_plan_parameters, return_direct=False)
-def add_excercise_to_workout_plan(exercise:str):
+@tool("add_exercise_to_workout_plan",args_schema=add_exercise_to_workout_plan_parameters, return_direct=False)
+def add_exercise_to_workout_plan(exercise:str):
     """this tool must be used before you can add sets, reps, weight, rest, time, RPE!!! this adds an exercise to the workout plan with the explanation from workouts.csv and sets it to the workout.csv file"""
     workouts = pd.read_csv(workouts_csv_location)  #åpner workouts.csv
     workouts.set_index("exercise",inplace=True)           #setter index til å være "exercise"
@@ -158,8 +158,3 @@ def add_time_to_exercise(time):
     workout.loc[set_exercise,"time"] = "%s min" % time
     workout.to_csv(workout_csv_location)
 
-
-create_workout_csv("ss")
-add_excercise_to_workout_plan("squat")
-workout = pd.read_csv(workout_csv_location)
-print(workout)

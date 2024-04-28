@@ -26,7 +26,7 @@ from CustomDocumentLoader import CustomDocumentLoader
 
 # File manipulation    
 from agent_functions.CustomDataLoader import get_csv_line
-from agent_functions.WorkoutExerciseLoader import create_workout_csv, add_excercise_to_workout_plan, add_sets_to_exercise, add_reps_to_exercise, add_weight_to_exercise, add_RPE_to_exercise, add_time_to_exercise, add_rest_to_exercise, read_csv_workout, select_exercise
+from agent_functions.WorkoutExerciseLoader import create_workout_csv, add_exercise_to_workout_plan, add_sets_to_exercise, add_reps_to_exercise, add_weight_to_exercise, add_RPE_to_exercise, add_time_to_exercise, add_rest_to_exercise, read_csv_workout, select_exercise
 
 # Training plan printer
 from agent_functions.TrainingPlanPrinter import standard_template_training_plan_printer
@@ -74,7 +74,7 @@ class TrainAiChatbot():
         # The functions that the agent is able to use
         tools = [standard_template_training_plan_printer, 
                  create_workout_csv, 
-                 add_excercise_to_workout_plan, 
+                 add_exercise_to_workout_plan, 
                  add_sets_to_exercise,
                  add_reps_to_exercise,
                  add_weight_to_exercise,
