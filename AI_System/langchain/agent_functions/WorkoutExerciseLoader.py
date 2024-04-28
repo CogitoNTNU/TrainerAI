@@ -85,7 +85,6 @@ def select_exercise(exercise):
     global set_exercise
     set_exercise = exercise
 
-
 class add_sets_to_excercise_paramaters(BaseModel):
     #exercise: str = Field(description="Should be the exercise you want to add to the workout plan, this input should be a string with the name of the excercise from workouts.csv, the row/index should be the same as in the workout.csv file")
     sets: str = Field(description="Should be the number of sets in the excerise")
@@ -120,7 +119,7 @@ def add_weight_to_exercise(weight):
     elif int(weight) < 0:
         weight = "use bands or a diffrent way to make the excercise easier"
     workout = pd.read_csv(workout_csv_location,index_col="exercise")  #åpner workout.csv
-    workout.loc[set_exercise,"weight"] = weight + " kg"   #legger til vekt til øvelsen
+    workout.loc[set_exercise,"weight"] = "%s kg" % weight   #legger til vekt til øvelsen
     workout.to_csv(workout_csv_location)  #lagrer workout.csv
 
 class add_rest_to_exercise_paramaters(BaseModel):
