@@ -35,7 +35,7 @@ from agent_functions.TrainingPlanPrinter import standard_template_training_plan_
 # Functions
 from agent_functions.listAllWorkoutFiles import list_all_existing_workouts
 from agent_functions.generalFunctions import get_todays_time
-
+from agent_functions.VectorDBCSV import search_exercises_vectorDB
 # Test
 from langchain import hub
 from langchain.agents import AgentExecutor, create_openai_tools_agent, create_tool_calling_agent
@@ -83,7 +83,8 @@ class TrainAiChatbot():
                  update_workout,
                  list_all_existing_workouts,
                  get_todays_time,
-                 delete_workout]
+                 delete_workout,
+                 search_exercises_vectorDB]
         
 
         llm = self.llm

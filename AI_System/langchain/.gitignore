@@ -7,3 +7,5 @@ venv/
 workout.csv
 workouts/*
 !workouts/.gitkeep
+vectorDB/*
+!vectorDB/.gitkeep
