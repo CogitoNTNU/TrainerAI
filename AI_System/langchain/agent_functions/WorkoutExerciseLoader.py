@@ -19,23 +19,22 @@ unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
 
 workouts_csv_location = "./workouts.csv"
 
-workout_csv_location = "./workout.csv"
-
 class read_csv_workout_parameters(BaseModel):   
-    workout_csv_locationforlol: str = Field(description="should be any string jsut to make it run the function, the workout.csv file path is AI_System/langchain/workouts.csv")
+    workout_id: str = Field(description="should be any string just to make it run the function, the workout.csv file path is AI_System/langchain/workouts.csv")
 @tool("read_csv_workout", args_schema=read_csv_workout_parameters, return_direct=False)
-def read_csv_workout(workout_csv_locationforlol:str):
-    """reads and outputs the csv file as a print"""
-    yes = workout_csv_locationforlol
-    workout = pd.read_csv(workout_csv_location)
+def read_csv_workout(workout_id:str):
+    """reads and outputs the workout file as a print"""
+    path = "./workouts/" + workout_id
+    workout = pd.read_csv(path)
     return print(workout)
 
 class set_workout_csv_location_paramaters(BaseModel):
-    workout_id: str = Field(description="This function sets the ID of the workout being manipulated. In Unix time format. Use it before modifying a new workout.")
+    workout_id: str = Field(description="This function sets the ID of the workout being manipulated. Its ID is the date and time of its creation. Use this function before creating or modifying a workout, and before create_workout_csv_parameters.")
 @tool("set_workout_csv_location", args_schema=set_workout_csv_location_paramaters, return_direct=False)
 def set_workout_csv_location(workout_id: str):
     """"this MUST be used create_workout_csv !!! this tool sets the datapath to workout.csv global variable"""
     # Set workout_csv_location to the workout currently being manipulated
+    global workout_csv_location
     workout_csv_location = './workouts/' + workout_id
 
 class create_workout_csv_parameters(BaseModel):
@@ -54,12 +53,10 @@ def create_workout_csv(datapath: str):
                             "explanation":[]})
     workout.set_index("exercise",inplace=True)
     workout.to_csv(workout_csv_location)
-    datapath = datapath
-    return "workout.csv created successfully"
+    return ("created workout at " + workout_csv_location + " successfully")
 
 class add_exercise_to_workout_plan_parameters(BaseModel):
     exercise: str = Field(description="Should be the exercise you want to add to the workout plan and must be in lower case, this input should be a string with the name of the excercise from workouts.csv, it row/index should be the same as in the workout.csv file") 
-
 @tool("add_exercise_to_workout_plan",args_schema=add_exercise_to_workout_plan_parameters, return_direct=False)
 def add_exercise_to_workout_plan(exercise:str):
     """this tool must be used before you can add sets, reps, weight, rest, time, RPE!!! this adds an exercise to the workout plan with the explanation from workouts.csv and sets it to the workout.csv file"""
