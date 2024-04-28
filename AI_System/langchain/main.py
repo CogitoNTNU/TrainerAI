@@ -1,14 +1,17 @@
 from flask import Flask, jsonify, request
 import agent
-
 from langchain_core.tracers.context import tracing_v2_enabled
 
+# AI Stuff
 chatbot = agent.TrainAiChatbot()
 def prompt_chatbot(prompt) -> str:
     # Code for tracking agent thought in langsmith
     with tracing_v2_enabled(project_name="default"):
         response = chatbot.run(prompt)
     return response
+
+
+# Flask Stuff
 
 app = Flask(__name__)
 
