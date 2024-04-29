@@ -5,7 +5,10 @@ import os
 from dotenv import load_dotenv
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.tools import BaseTool, StructuredTool, tool
+from datetime import datetime
 
+unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
+print(unix_timestamp)
 
 load_dotenv(dotenv_path="AI_System/langchain/.env")
 OPENAI_API_KEY: str = os.getenv(key="OPENAI_API_KEY")
@@ -35,6 +38,99 @@ def search_exercises_vectorDB(search_query: str = None):
     current_dir = os.getcwd()
     os.chdir("./vectorDB")
     new_exercises = FAISS.load_local("exercises",embeddings,allow_dangerous_deserialization=True)
+    results = new_exercises.similarity_search(query,10)
+    os.chdir(current_dir)
+    return results
+
+
+
+    workout: str = Field("The workout input can under no circumstances be empty.")
+@tool("create_complted_workouts_vectorDB")
+def create__completed_workouts_vectorDB():
+    """Creates a vector databe of previously completed workouts and put it in a vector database."""
+    current_dir = os.getcwd()
+    embeddings = OpenAIEmbeddings()
+    #list all completed wokout files
+    directory = './workouts'
+    all_workouts = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
+    for i in all_workouts:
+        if all_workouts[i] >= unix_timestamp:
+            all_workouts.remove(all_workouts[i])
+    #create vDB of all workouts
+    all_workouts = CSVLoader(file_path=all_workouts[0])
+    loaded_workouts = workouts.load()
+    workouts = FAISS.from_documents(loaded_workouts, embeddings)
+    for i in all_workouts:
+        temp_workout = CSVLoader(file_path=all_workouts[i])
+        temp_workouts = temp_workout.load()
+        workouts = FAISS.add_documents(temp_workouts, embeddings)
+    os.chdir("./vectorDB")
+    workouts.save_local("completed_workouts")
+    os.chdir(current_dir)
+    return print("Vector completed vectroDB created")
+
+@tool("create_future_workouts_vectorDB")
+def create__completed_workouts_vectorDB():
+    """Creates a vector databe of previously completed workouts and put it in a vector database."""
+    current_dir = os.getcwd()
+    embeddings = OpenAIEmbeddings()
+    #list all completed wokout files
+    directory = './workouts'
+    all_workouts = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
+    for i in all_workouts:
+        if all_workouts[i] < unix_timestamp:
+            all_workouts.remove(all_workouts[i])
+    #create vDB of all workouts
+    all_workouts = CSVLoader(file_path=all_workouts[0])
+    loaded_workouts = workouts.load()
+    workouts = FAISS.from_documents(loaded_workouts, embeddings)
+    for i in all_workouts:
+        temp_workout = CSVLoader(file_path=all_workouts[i])
+        temp_workouts = temp_workout.load()
+        workouts = FAISS.add_documents(temp_workouts, embeddings)
+    os.chdir("./vectorDB")
+    workouts.save_local("future_workouts")
+    os.chdir(current_dir)
+    return print("future workouts vectroDB created")
+
+class add_workout_to_a_vectorDB_parameters(BaseModel):
+    vectorDB: str = Field("This should the name of the vector data base that the workout plan should be added to. This should be either 'completed_workouts' or 'future_workouts'.")
+    workout_id: str = Field("The workout id should be a unique identifier for the workout plan.")
+@tool("add_a_workout_to_a_vectorDB", args_schema=add_workout_to_a_vectorDB_parameters)
+def add_a_workout_to_a_vectorDB(vectorDB: str, workout_id: str):
+    """A function for adding a workout to a exsiting workout database."""
+    try:
+        assert vectorDB == "completed_workouts" or vectorDB == "future_workouts"
+    except AssertionError:
+        return print("The vectorDB should be either 'completed_workouts' or 'future_workouts'.")
+    current_dir = os.getcwd()
+    embeddings = OpenAIEmbeddings()
+    os.chdir("./vectorDB")
+    loaded_vectorDB = FAISS.load_local(vectorDB,allow_dangerous_deserialization=True)
+    loaded_vectorDB.add_document(workout_id, embeddings)
+    loaded_vectorDB.save_local(vectorDB)
+    os.chdir(current_dir)
+    return print(f'added {workout_id} to vector database: {vectorDB}')
+                 
+
+                 
+class search_workout_vectorDB_parameters(BaseModel):
+    vectorDB: str = Field("This should the name of the vector data base that the workout plan should be added to. This should be either 'completed_workouts' or 'future_workouts'.")
+    search_query: str = Field("The search query should be a string that can be used to search for a workout plan.")
+@tool("search_workout_vectorDB", args_schema=search_workout_vectorDB_parameters)
+def search_workout_vectorDB(vectorDB: str, search_query: str):
+    """A function for searching for trough either completed workouts or completed workouts in a vector database."""
+    try:
+        assert vectorDB == "completed_workouts" or vectorDB == "future_workouts"
+    except AssertionError:
+            return print("The vectorDB should be either 'completed_workouts' or 'future_workouts'.")
+    if search_query == None:
+        return search_query == "exercise"
+    embeddings = OpenAIEmbeddings()
+    query = search_query
+    current_dir = os.getcwd()
+    os.chdir("./vectorDB")
+    new_exercises = FAISS.load_local(vectorDB,embeddings,allow_dangerous_deserialization=True)
     results = new_exercises.similarity_search(query,10)
     os.chdir(current_dir)
     return results
