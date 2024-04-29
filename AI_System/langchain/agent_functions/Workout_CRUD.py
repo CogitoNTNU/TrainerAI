@@ -51,11 +51,16 @@ class read_workout_parameters(BaseModel):
 def read_workout(workout_id:str):
     """reads and outputs the workout file as a print"""
     path = "./workouts/" + workout_id + ".csv"
-    loader = CSVLoader(path)
-    loaded_csv = loader.load()
-    if(len(loaded_csv) < 1):
-        return "The workout is empty. Sorry."
-    return loaded_csv
+    try:
+        loader = CSVLoader(path)
+        loaded_csv = loader.load()
+        if(len(loaded_csv) < 1):
+            return "The workout is empty. Sorry."
+        return loaded_csv
+    except:
+        return 'No workout found sorry.'
+    
+
 
 class add_exercise_to_workout_parameters(BaseModel):
     workout_id: str = Field(description="The ID of the workout as a string. The ID is the filename of the workout, which is the date and time the workout was recoreded.")
