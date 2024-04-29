@@ -27,33 +27,39 @@ def create_exercises_vectorDB():
 
 
 class search_exercises_vectorDB_parameters(BaseModel):
-    search_query: str = Field("You can search for exercise name, equipment required or muscle group. The input can under no circumstances be empty.")
+    search_query: str = Field("You can search for exercise name, equipment required or muscle group. The input is a plain string, without curly brackets. By default use the string 'exercise'. Never input anything empty.")
 @tool("search_exercises_vectorDB", args_schema=search_exercises_vectorDB_parameters)
 def search_exercises_vectorDB(search_query: str = None):
-    """A function for finding known exercises before adding them to a workout. Can also be used to find exercises that require specific equipment, or exercises that hit specific muscle groups."""
-    if search_query == None:
-        return search_query == "exercise"
+    """A function for finding known exercises before adding them to a workout. Can also be used to find exercises that require specific equipment, or exercises that hit specific muscle groups. You can search in general for 'exercises'."""
+    if(search_query == None):
+        search_query = "exercise"
+
+    print(search_query)
     embeddings = OpenAIEmbeddings()
-    query = search_query
     current_dir = os.getcwd()
     os.chdir("./vectorDB")
     new_exercises = FAISS.load_local("exercises",embeddings,allow_dangerous_deserialization=True)
-    results = new_exercises.similarity_search(query,10)
+    results = new_exercises.similarity_search(search_query,10)
     os.chdir(current_dir)
     return results
 
 
 
-    workout: str = Field("The workout input can under no circumstances be empty.")
-@tool("create_complted_workouts_vectorDB")
-def create__completed_workouts_vectorDB():
-    """Creates a vector databe of previously completed workouts and put it in a vector database."""
+@tool("create_completed_workouts_vectorDB")
+def create_completed_workouts_vectorDB():
+    """Creates and updates the vector database of completed workouts."""
     current_dir = os.getcwd()
     embeddings = OpenAIEmbeddings()
     #list all completed wokout files
     directory = './workouts'
     all_workouts = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
     for i in all_workouts:
+        print(all_workouts[i])
+        datetime_str = all_workouts.split(".")[0] # remove filename ending
+        print(datetime_str)
+        format_str = "%Y%m%d_%H%M%S_%f" # Format the filename is in.
+        datetime_object = datetime.strptime(datetime_str, format_str) # create datetime object. Using the format_str as a template to read.
+        unix_timestamp = datetime_object.timestamp() # Convert to unix timestamp
         if all_workouts[i] >= unix_timestamp:
             all_workouts.remove(all_workouts[i])
     #create vDB of all workouts
@@ -67,11 +73,11 @@ def create__completed_workouts_vectorDB():
     os.chdir("./vectorDB")
     workouts.save_local("completed_workouts")
     os.chdir(current_dir)
-    return print("Vector completed vectroDB created")
+    return print("Vector completed vectorDB created")
 
 @tool("create_future_workouts_vectorDB")
-def create__completed_workouts_vectorDB():
-    """Creates a vector databe of previously completed workouts and put it in a vector database."""
+def create_future_workouts_vectorDB():
+    """Creates a vector database of future or planned workouts."""
     current_dir = os.getcwd()
     embeddings = OpenAIEmbeddings()
     #list all completed wokout files
@@ -112,14 +118,12 @@ def add_a_workout_to_a_vectorDB(vectorDB: str, workout_id: str):
     os.chdir(current_dir)
     return print(f'added {workout_id} to vector database: {vectorDB}')
                  
-
-                 
 class search_workout_vectorDB_parameters(BaseModel):
     vectorDB: str = Field("This should the name of the vector data base that the workout plan should be added to. This should be either 'completed_workouts' or 'future_workouts'.")
     search_query: str = Field("The search query should be a string that can be used to search for a workout plan.")
 @tool("search_workout_vectorDB", args_schema=search_workout_vectorDB_parameters)
 def search_workout_vectorDB(vectorDB: str, search_query: str):
-    """A function for searching for trough either completed workouts or completed workouts in a vector database."""
+    """A function for searching for through either completed workouts or completed workouts in a vector database."""
     try:
         assert vectorDB == "completed_workouts" or vectorDB == "future_workouts"
     except AssertionError:

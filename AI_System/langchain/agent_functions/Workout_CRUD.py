@@ -21,7 +21,7 @@ unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
 
 class create_new_workout_parameters(BaseModel):   
     date: str = Field(description="The date when the workout should start. The string should be formatted as: 'day/month/year' in numbers. Example: '25/01/2006'. This could be now, in the future or in the past.")
-    time: str = Field(description="The time when the workout should start. This could be now, in the future or in the past.")
+    time: str = Field(description="The time when the workout should start. This could be now, in the future or in the past. Only use hours and minutes. Example 'hh:mm'")
 @tool("create_new_workout", args_schema=create_new_workout_parameters, return_direct=False)
 def create_workout(date: str, time: str):
     """This tool creates a new csv file for a new workout. With the columns exercise, sets, reps, vekt, RPE and explanation for exercises."""

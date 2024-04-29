@@ -1,3 +1,3 @@
-exercise,Main muscle,Secondary muscle,explanation,equipment
-back squat,Quadriceps,"Hamstring, glutes, core",squat down,Barbell
-barbell bench press,Pectoralis major,Triceps,benchpress,Barbell
+exercise,Main muscle,Secondary muscle,explanation,equipment,type
+back squat,Quadriceps,"Hamstring, glutes, core",squat down,Barbell,exercise
+barbell bench press,Pectoralis major,Triceps,benchpress,Barbell,exercise
