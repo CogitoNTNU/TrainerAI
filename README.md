@@ -84,7 +84,7 @@ Main endpoint : Nodejs - Providing static file hosting for the user interface, a
 
 <!--INSERT PICTURE OF TEAM-->
 <div align="center">
-<img src="https://cogito-ntnu.no/static/img/projects/erpokerpfpwekwpkerwer.png"></img>
+<img src=""></img>
 </div>
 
 #### Leader(s):
