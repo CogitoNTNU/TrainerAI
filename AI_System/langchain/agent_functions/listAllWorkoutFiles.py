@@ -4,7 +4,7 @@ from langchain.tools import tool
 
 @tool("listAllExistingWorkouts", return_direct=False)
 def list_all_existing_workouts():
-    """A function to retrieve all workouts of the user. Their name is the date and time they were created."""
+    """A function to retrieve all workout IDs of the user. Their name is the date and time they were created. Useful when having to display a large number of workouts, and to see the schedule, or a list of finished or planned workouts."""
     workouts = []
     # Find all workout files in the folder workouts
     directory = './workouts'

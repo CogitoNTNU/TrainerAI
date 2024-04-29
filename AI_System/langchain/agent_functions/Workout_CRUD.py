@@ -105,7 +105,7 @@ def remove_exercise_from_workout(workout_id:str, exercise:str):
 
 
 class delete_workout_parameters(BaseModel):   
-    workout_id: str = Field(description="ID of the workout you want to delete. It's a date-time string. You should list all workouts to see if the deletion was successfull.")
+    workout_id: str = Field(description="ID of the workout you want to delete. It's a date-time string, formatted exactly like the names of the workout_id: example: (20240430_080000_000000). You should list all workouts to see if the deletion was successfull.")
 @tool("delete_workout", args_schema=delete_workout_parameters, return_direct=False)
 def delete_workout(workout_id:str):
     """Deletes the workout CSV file for the given workout ID."""
