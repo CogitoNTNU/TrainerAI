@@ -87,12 +87,11 @@ Main endpoint : Nodejs - Providing static file hosting for the user interface, a
 <img src="https://cogito-ntnu.no/static/img/projects/erpokerpfpwekwpkerwer.png"></img>
 </div>
 
-Right to left: [@example](https://github.com/Jonrodtang)    [@example](https://github.com/Jonrodtang)    [@example](https://github.com/Jonrodtang)
 #### Leader(s):
 - [William Schmidt](https://github.com/williammrs)
 
 #### Team members:
-- [Tryggve Klevstul-Jensen]([https://github.com/tryggvek](https://github.com/tryggvek))
+- [Tryggve Klevstul-Jensen](https://github.com/tryggvek)
 -  [Eldar Alvik](https://github.com/PolarUgle)
 - [James](https://github.com/JamesP62)
 
