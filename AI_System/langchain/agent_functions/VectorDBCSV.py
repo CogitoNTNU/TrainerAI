@@ -29,7 +29,7 @@ class search_exercises_vectorDB_parameters(BaseModel):
 def search_exercises_vectorDB(search_query: str = None):
     """A function for finding known exercises before adding them to a workout. Can also be used to find exercises that require specific equipment, or exercises that hit specific muscle groups."""
     if search_query == None:
-        return search_query == "a"
+        return search_query == "exercise"
     embeddings = OpenAIEmbeddings()
     query = search_query
     current_dir = os.getcwd()
