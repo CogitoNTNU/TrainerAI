@@ -45,7 +45,7 @@ class search_exercises_vectorDB__parameters(BaseModel):
 def search_exercises_vectorDB(search_query: str = None):
     """A function for searching  trough the vector db exercise in the vector database"""
     if search_query == None:
-        return search_query == "a"
+        return search_query == "exercise"
     embeddings = OpenAIEmbeddings()
     query = search_query
     current_dir = os.getcwd()
