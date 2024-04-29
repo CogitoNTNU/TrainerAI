@@ -76,18 +76,18 @@ LLM service - Running a python flask server, using langchain
 Main endpoint : Nodejs - Providing static file hosting for the user interface, as well as rerouting to other services via API calls. 
 
 #### Why do you route everything via Node, instead of calling the flask servers directly?
-This way we can host everything on one machine, WITHOUT worrying about CORS.
-1: CORS issues arise when a website tries to access information from a different domain than the one it's hosted on. This is a server issue, and can be fixed by allowing CORS, but is complexity we don't need right now.
-2: By only having one endpoint, we can host this on a machine, with only one domain-name. Multiple direct endpoints would require multiple domain names to access, as they would be different servers. This requires setting up a load-balancer, which is not interest of the project.
+1: CORS
+2: Node is better suited for exposing directly to web.
 
-### Team
 ------
+### Team
+
 <!--INSERT PICTURE OF TEAM-->
 <div align="center">
 <img src="https://cogito-ntnu.no/static/img/projects/erpokerpfpwekwpkerwer.png"></img>
 </div>
 
-Right to left: [@example](https://github.com/Jonrodtang)    [@example](https://github.com/Jonrodtang)    [@example](https://github.com/Jonrodtang)    [@example](https://github.com/Jonrodtang)  
+Right to left: [@example](https://github.com/Jonrodtang)    [@example](https://github.com/Jonrodtang)    [@example](https://github.com/Jonrodtang)
 #### Leader(s):
 - [William Schmidt](https://github.com/williammrs)
 
@@ -96,10 +96,10 @@ Right to left: [@example](https://github.com/Jonrodtang)    [@example](https://g
 -  [Eldar Alvik](https://github.com/PolarUgle)
 - [James](https://github.com/JamesP62)
 
-### License
 ------
+### License
 Distributed under the MIT License. See `LICENSE` for more information.
 
-### Credits
 ------
+### Credits
 Template by [@JonRodtang](https://github.com/Jonrodtang) for  [@CogitoNTNU](https://github.com/CogitoNTNU)  <p align="right">(<a href="#top">back to top</a>)</p>
