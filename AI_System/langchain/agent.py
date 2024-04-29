@@ -76,8 +76,7 @@ class TrainAiChatbot():
         """
         
         # The functions that the agent is able to use
-        tools = [standard_template_training_plan_printer, 
-                 create_workout,
+        tools = [create_workout,
                  read_workout,
                  add_exercise_to_workout,
                  remove_exercise_from_workout,

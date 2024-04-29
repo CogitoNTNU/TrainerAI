@@ -1,8 +1,19 @@
 // Runs on inital startup, after window (html) has finished loading
 init = () => {
     document.getElementById('send_button').addEventListener('click', sendMessage)
+    document.getElementById('clear_log').addEventListener('click', clear_log)
 }
 window.onload = init;
+
+clear_log = async () => {
+    try{
+        res = await fetch('/clear_chat_history')
+        chat_history.innerHTML = ""
+        alert("Chatlog cleared successfully!")
+    }catch(e){
+        console.log("It borked")
+    }
+}
 
 // Placeholder
 conversation_id = 0
