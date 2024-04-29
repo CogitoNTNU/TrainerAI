@@ -20,7 +20,7 @@ from datetime import datetime
 unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
 
 class create_new_workout_parameters(BaseModel):   
-    date: str = Field(description="The date when the workout should start. This could be now, in the future or in the past.")
+    date: str = Field(description="The date when the workout should start. The string should be formatted as: 'day/month/year' in numbers. Example: '25/01/2006'. This could be now, in the future or in the past.")
     time: str = Field(description="The time when the workout should start. This could be now, in the future or in the past.")
 @tool("create_new_workout", args_schema=create_new_workout_parameters, return_direct=False)
 def create_workout(date: str, time: str):
@@ -36,7 +36,8 @@ def create_workout(date: str, time: str):
     workout.set_index("exercise",inplace=True)
     # Get current date and time
     combined_datetime = f"{date} {time}"
-    datetime_object = datetime.strptime(combined_datetime, "%Y-%m-%d %H:%M")
+    print(combined_datetime)
+    datetime_object = datetime.strptime(combined_datetime, "%d/%m/%Y %H:%M")
     # Format the datetime object to create a unique workout ID
     formatted_date_time = datetime_object.strftime("%Y%m%d_%H%M%S_%f")
     workout_id = formatted_date_time
@@ -45,7 +46,7 @@ def create_workout(date: str, time: str):
     return ("created workout at " + workout_file_path + " successfully! It's ID is: " + workout_id)
 
 class read_workout_parameters(BaseModel):   
-    workout_id: str = Field(description="ID of the workout you want to load, read or display. Gives you workout details. It's a date-time string. Remember to ALWAYS show the user the exercise name, reps and weight.")
+    workout_id: str = Field(description="ID of the workout you want to load, read or display. Gives you workout details. It's a date-time string. Do NOT include '.csv' at the end. Remember to ALWAYS show the user the exercise name, reps and weight.")
 @tool("read_workout", args_schema=read_workout_parameters, return_direct=False)
 def read_workout(workout_id:str):
     """reads and outputs the workout file as a print"""
