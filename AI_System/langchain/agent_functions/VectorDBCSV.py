@@ -27,18 +27,18 @@ def create_exercises_vectorDB():
 
 
 class search_exercises_vectorDB_parameters(BaseModel):
-    search_query: str = Field("You can search for exercise name, equipment required or muscle group. The input can under no circumstances be empty.")
+    search_query: str = Field("You can search for exercise name, equipment required or muscle group or exercises. The input can under no circumstances be empty. these are the the catorgories that can be searched for: 'exercise', 'equipment', 'muscle group'.")
 @tool("search_exercises_vectorDB", args_schema=search_exercises_vectorDB_parameters)
 def search_exercises_vectorDB(search_query: str = None):
     """A function for finding known exercises before adding them to a workout. Can also be used to find exercises that require specific equipment, or exercises that hit specific muscle groups."""
     if search_query == None:
-         search_query == "exercise"
+         search_query = "exercise"
     embeddings = OpenAIEmbeddings()
     query = search_query
     current_dir = os.getcwd()
     os.chdir("./vectorDB")
     new_exercises = FAISS.load_local("exercises",embeddings,allow_dangerous_deserialization=True)
-    results = new_exercises.similarity_search(query,10)
+    results = new_exercises.similarity_search(query,100)
     os.chdir(current_dir)
     return results
 
