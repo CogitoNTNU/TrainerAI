@@ -44,6 +44,7 @@ def search_exercises_vectorDB(search_query: str = None):
 
 
 
+    workout: str = Field("The workout input can under no circumstances be empty.")
 @tool("create_complted_workouts_vectorDB")
 def create__completed_workouts_vectorDB():
     """Creates a vector databe of previously completed workouts and put it in a vector database."""
