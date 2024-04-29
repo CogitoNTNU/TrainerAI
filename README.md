@@ -35,12 +35,15 @@
   </ol>
 </details>
 
-### About 
 -----
+### About 
+
 Trainer AI is an LLM assistant agent with the goal of helping you workout more efficiently, and spend less time preparing workout sets, and analyzing data.
 You talk to it like a personal coach, and it records your efforts, and lays plans for you to reach your goals.
-### Getting started
+
 ------
+### Getting started
+
 
 #### Prerequisites
 - You require Docker to be installed on your machine.
@@ -60,10 +63,11 @@ Run this in your terminal (Granted you have [Docker]([url](https://www.docker.co
 Docker compose up --build
 ```
 
+-----
 #### Usage
-------
 The UI is accessible at https://localhost:3000
 
+------
 ### Architecture
 We're using 4 backend services.
 Mongodb server - Running on port 27017 - providing storage for chatlogs
