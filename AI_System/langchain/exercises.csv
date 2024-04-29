@@ -1,3 +1,81 @@
-exercise,Main muscle,Secondary muscle,explanation,equipment,type
-back squat,Quadriceps,"Hamstring, glutes, core",squat down,Barbell,exercise
-barbell bench press,Pectoralis major,Triceps,benchpress,Barbell,exercise
+exercise,Main muscle,Secondary muscle,explanation,equipment,type,compound/isolation,skill level,
+back squat,Quadriceps,"Hamstring, glutes, core","place the barbell on your back and have your feet a little wider than shoulder with take a breath and brace your core, squat down to hip height and return to the top",Barbell,exercise,compound,intermediate
+barbell bench press,Pectoralis major,Triceps,"place the barbell on your chest and have your feet on the ground, take a breath and brace your core, lower the barbell to your chest and press it back up",Barbell,exercise,compound,intermediate
+jogg,Cardiovascular,Legs,"run at a steady pace for a long period of time",None,exercise,compound,beginner
+deadlift,Hamstring,Glutes,"place the barbell on the ground and have your feet shoulder width apart, take a breath and brace your core, lift the barbell up to hip height and return to the ground",Barbell,exercise,compound,intermediate
+pull up,Latissimus dorsi,Biceps,"hang from a bar and pull yourself up until your chin is above the bar",Pull up bar,exercise,compound,intermediate
+push up,Pectoralis major,Triceps,"place your hands on the ground and lower your chest to the ground and press back up",None,exercise,compound,beginner
+dumbbell curl,Biceps,Forearm,"hold a dumbbell in each hand and curl the dumbbell up to your shoulder and return to the bottom",Dumbbell,exercise,isolation,beginner
+dumbbell shoulder press,Shoulders,Triceps,"hold a dumbbell in each hand and press the dumbbell up above your head and return to the bottom",Dumbbell,exercise,compound,beginner
+dumbbell row,Latissimus dorsi,Biceps,"hold a dumbbell in each hand and row the dumbbell up to your chest and return to the bottom",Dumbbell,exercise,compound,beginner
+dumbbell bench press,Pectoralis major,Triceps,"hold a dumbbell in each hand and press the dumbbell up above your chest and return to the bottom",Dumbbell,exercise,compound,beginner
+dumbbell squat,Quadriceps,"Hamstring, glutes, core","hold a dumbbell in each hand and squat down to hip height and return to the top",Dumbbell,exercise,compound,beginner
+dumbbell deadlift,Hamstring,Glutes,"hold a dumbbell in each hand and lift the dumbbell up to hip height and return to the ground",Dumbbell,exercise,compound,beginner
+box jump,Cardiovascular,Legs,"jump onto a box and step down",Box,exercise,compound,beginner
+box squat,Quadriceps,"Hamstring, glutes, core","sit down on a box and stand back up","barbell,Box",exercise,compound,beginner
+push up,Pectoralis major,Triceps,"place your hands on the box and lower your chest to the box and press back up",Box,exercise,compound,beginner
+overhead barbell press,Shoulders,Triceps,"place the barbell on your chest and have your feet on the ground, take a breath and brace your core, press the barbell up above your head and return to the bottom",Barbell,exercise,compound,intermediate
+barbell row,Latissimus dorsi,Biceps,"place the barbell on the ground and have your feet shoulder width apart, take a breath and brace your core, row the barbell up to your chest and return to the bottom",Barbell,exercise,compound,intermediate
+dumbell incline bench press,Pectoralis major,Triceps,"set thehold a dumbbell in each hand and press the dumbbell up above your chest and return to the bottom",Dumbbell,exercise,compound,beginner
+ab crunch machine,Abdominals,Obliques,"sit on the machine and crunch your abs",Machine,exercise,isolation,beginner
+leg press,Quadriceps,"Hamstring, glutes, core","sit on the machine and press the weight up with your legs",Machine,exercise,compound,beginner
+leg curl,Hamstring,Glutes,"sit on the machine and curl your legs up",Machine,exercise,isolation,beginner
+leg extension,Quadriceps,"Hamstring, glutes, core","sit on the machine and extend your legs out",Machine,exercise,isolation,beginner
+calf raise,Calves,,"stand on the machine and raise your heels up",Machine,exercise,isolation,beginner
+tricep extension,Triceps,,"hold a dumbbell in each hand and extend your arms out",Dumbbell,exercise,isolation,beginner
+shrugs,Trapezius,,"hold a dumbbell in each hand and shrug your shoulders up",Dumbbell,exercise,isolation,beginner
+dips,Triceps,,"hang from a bar and lower your body down and press back up",Dip bar,exercise,compound,intermediate
+crunches,Abdominals,Obliques,"lay on the ground and crunch your abs",None,exercise,isolation,beginner
+cable row,Latissimus dorsi,Biceps,"hold the cable in each hand and row the cable to your chest and return to the bottom",Cable machine,exercise,compound,intermediate
+cable fly,Pectoralis major,Triceps,"hold the cable in each hand and fly the cable out to your sides and return to the front",Cable machine,exercise,isolation,intermediate
+cable curl,Biceps,Forearm,"hold the cable in each hand and curl the cable up to your shoulder and return to the bottom",Cable machine,exercise,isolation,intermediate
+cable tricep extension,Triceps,,"hold the cable in each hand and extend your arms out",Cable machine,exercise,isolation,intermediate
+cable crunch,Abdominals,Obliques,"hold the cable in each hand and crunch your abs",Cable machine,exercise,isolation,intermediate
+bulgarain split squat,Quadriceps,"Hamstring, glutes, core","place one foot on a bench and squat down with the other leg and return to the top",Dumbbell,exercise,compound,intermediate
+romanian deadlift,Hamstring,Glutes,"hold a barbell in front of you and hinge at the hips and return to the top",Barbell,exercise,compound,intermediate
+front squat,Quadriceps,"Hamstring, glutes, core","place the barbell on your chest and have your feet a little wider than shoulder with take a breath and brace your core, squat down to hip height and return to the top",Barbell,exercise,compound,intermediate
+sumo deadlift,Hamstring,Glutes,"place the barbell on the ground and have your feet wider than shoulder width apart, take a breath and brace your core, lift the barbell up to hip height and return to the ground",Barbell,exercise,compound,intermediate
+sumo squat,Quadriceps,"Hamstring, glutes, core","place the barbell on your back and have your feet wider than shoulder with take a breath and brace your core, squat down to hip height and return to the top",Barbell,exercise,compound,intermediate
+lunges dumbell,Quadriceps,"Hamstring, glutes, core","hold a dumbbell in each hand and step forward and squat down and return to the top",Dumbbell,exercise,compound,intermediate
+lunges barbell,Quadriceps,"Hamstring, glutes, core","place the barbell on your back and have your feet a little wider than shoulder with take a breath and brace your core, step forward and squat down and return to the top",Barbell,exercise,compound,intermediate
+cable lateral raise,Shoulders,,"hold the cable in each hand and raise the cable up to your sides and return to the bottom",Cable machine,exercise,isolation,intermediate
+cable face pull,Shoulders,,"hold the cable in each hand and pull the cable to your face and return to the bottom",Cable machine,exercise,isolation,intermediate
+cable upright row,Shoulders,,"hold the cable in each hand and row the cable up to your chest and return to the bottom",Cable machine,exercise,isolation,intermediate
+cable reverse fly,Shoulders,,"hold the cable in each hand and fly the cable out to your sides and return to the front",Cable machine,exercise,isolation,intermediate
+laterall raise dumbell,Shoulders,,"hold a dumbbell in each hand and raise the dumbbell up to your sides and return to the bottom",Dumbbell,exercise,isolation,beginner
+tibialis raise,Shin,,"place a weight on your foot and raise your foot up",kettlbell,exercise,isolation,beginner
+cable woodchop,Obliques,,"hold the cable in each hand and chop the cable down to your side and return to the top",Cable machine,exercise,isolation,intermediate
+cable oblique twist,Obliques,,"hold the cable in each hand and twist your body to the side and return to the middle",Cable machine,exercise,isolation,intermediate
+cable leg raise,Abdominals,Obliques,"hold the cable in each hand and raise your legs up",Cable machine,exercise,isolation,intermediate
+cable crunch,Abdominals,Obliques,"hold the cable in each hand and crunch your abs",Cable machine,exercise,isolation,intermediate
+russian twist,Abdominals,Obliques,"hold a weight in each hand and twist your body to the side and return to the middle",Dumbbell,exercise,isolation,beginner
+kettlebell swing,Hamstring,Glutes,"hold a kettlebell in front of you and swing the kettlebell up to shoulder height and return to the bottom",Kettlebell,exercise,compound,beginner
+kettlebell clean,Hamstring,Glutes,"hold a kettlebell in front of you and clean the kettlebell up to shoulder height and return to the bottom",Kettlebell,exercise,compound,beginner
+kettlebell snatch,Hamstring,Glutes,"hold a kettlebell in front of you and snatch the kettlebell up to shoulder height and return to the bottom",Kettlebell,exercise,compound,beginner
+kettlebell press,Shoulders,Triceps,"hold a kettlebell in each hand and press the kettlebell up above your head and return to the bottom",Kettlebell,exercise,compound,beginner
+kettlebell row,Latissimus dorsi,Biceps,"hold a kettlebell in each hand and row the kettlebell up to your chest and return to the bottom",Kettlebell,exercise,compound,beginner
+kettlebell squat,Quadriceps,"Hamstring, glutes, core","hold a kettlebell in front of you and squat down to hip height and return to the top",Kettlebell,exercise,compound,beginner
+kettlebell deadlift,Hamstring,Glutes,"hold a kettlebell in front of you and lift the kettlebell up to hip height and return to the ground",Kettlebell,exercise,compound,beginner
+kettlebell lunge,Quadriceps,"Hamstring, glutes, core","hold a kettlebell in each hand and step forward and squat down and return to the top",Kettlebell,exercise,compound,beginner
+kettlebell goblet squat,Quadriceps,"Hamstring, glutes, core","hold a kettlebell in front of you and squat down to hip height and return to the top",Kettlebell,exercise,compound,beginner
+clean and jerk,glutes,"Hamstring, shoulders, core","place the barbell on the ground and have your feet shoulder width apart, take a breath and brace your core, clean the barbell up to your chest and press the barbell up above your head and return to the bottom",Barbell,exercise,compound,advanced
+snatch,glutes,"Hamstring, shoulders, core","place the barbell on the ground and have your feet shoulder width apart, take a breath and brace your core, snatch the barbell up to your chest and press the barbell up above your head and return to the bottom",Barbell,exercise,compound,intermediate
+smith machine squat,Quadriceps,"Hamstring, glutes, core","place the barbell on your back and have your feet a little wider than shoulder with take a breath and brace your core, squat down to hip height and return to the top",Smith machine,exercise,compound,intermediate
+smith machine bench press,Pectoralis major,Triceps,"place the barbell on your chest and have your feet on the ground, take a breath and brace your core, lower the barbell to your chest and press it back up",Smith machine,exercise,compound,intermediate
+smith machine deadlift,Hamstring,Glutes,"place the barbell on the ground and have your feet shoulder width apart, take a breath and brace your core, lift the barbell up to hip height and return to the ground",Smith machine,exercise,compound,intermediate
+smith machine row,Latissimus dorsi,Biceps,"place the barbell on the ground and have your feet shoulder width apart, take a breath and brace your core, row the barbell up to your chest and return to the bottom",Smith machine,exercise,compound,intermediate
+smith machine shoulder press,Shoulders,Triceps,"place the barbell on your chest and have your feet on the ground, take a breath and brace your core, press the barbell up above your head and return to the bottom",Smith machine,exercise,compound,intermediate
+pigeon stretch,Glutes,,"sit on the ground and place one leg in front of you and the other leg behind you and lean forward",None,stretch,isolation,beginner
+quad stretch,Quadriceps,,"stand on one leg and grab the other leg and pull it to your butt",None,stretch,isolation,beginner
+hamstring stretch,Hamstring,,"sit on the ground and place one leg in front of you and the other leg behind you and lean forward",None,stretch,isolation,beginner
+calf stretch,Calves,,"stand on one leg and place the other leg behind you and lean forward",None,stretch,isolation,beginner
+shoulder stretch,Shoulders,,"place one arm across your body and pull it towards you",None,stretch,isolation,beginner
+tricep stretch,Triceps,,"place one arm behind your head and pull it towards you",None,stretch,isolation,beginner
+chest stretch,Pectoralis major,,"place your hands on a wall and lean forward",None,stretch,isolation,beginner
+back stretch,Latissimus dorsi,,"place your hands on a wall and lean forward",None,stretch,isolation,beginner
+ab stretch,Abdominals,,"lay on the ground and place your hands above your head and stretch out",None,stretch,isolation,beginner
+deadhang,Latissimus dorsi,Biceps,"hang from a bar and relax your body",Pull up bar,stretch,isolation,beginner
+muscle up,Latissimus dorsi,Biceps,"hang from a bar and pull yourself up and push yourself up",Pull up bar,exercise,compound,advanced
+
+
+
