@@ -37,16 +37,18 @@ requestResponseLLM = async (message, conversation_id) => {
 
 app.get('/clear_chat_history', async (req, res) => {
   try {
-    const res = await fetch('http://llm-service:3001/delete_chat_log', {
+    const result = await fetch('http://llm-service:3001/delete_chat_log', {
       method: "get",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
     });
-    res.json({resposne: "cleared"})
+    console.log("chatlog cleared - node res.")
+    res.json({message: "cleared"})
   } catch (err) {
     console.log(err); //can be console.error
+    res.json({message: "server error"})
   }
 })
 

@@ -8,6 +8,8 @@ window.onload = init;
 clear_log = async () => {
     try{
         res = await fetch('/clear_chat_history')
+        result = await res.json()
+        console.log(result)
         chat_history.innerHTML = ""
         alert("Chatlog cleared successfully!")
     }catch(e){
