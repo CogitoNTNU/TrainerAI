@@ -1,6 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
+const fs = require('fs')
+
 app.use(bodyParser.json())
 app.use(express.static('public'))
 app.get('/', (req, res) => {
@@ -32,6 +34,23 @@ requestResponseLLM = async (message, conversation_id) => {
       console.log(err); //can be console.error
     }
 }
+
+app.get('/clear_chat_history', async (req, res) => {
+  try {
+    const result = await fetch('http://llm-service:3001/delete_chat_log', {
+      method: "get",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    });
+    console.log("chatlog cleared - node res.")
+    res.json({message: "cleared"})
+  } catch (err) {
+    console.log(err); //can be console.error
+    res.json({message: "server error"})
+  }
+})
 
 app.post('/send_message', async (req, res) => {
     const message = req.body.message
