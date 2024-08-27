@@ -60,7 +60,7 @@ LANGSMITH_API_KEY = ""
 cd into the AI_system folder. Make sure there's a compose.yaml file there.
 Run this in your terminal (Granted you have [Docker]([url](https://www.docker.com/get-started/)) on your system)
 ```
-Docker compose up --build
+docker compose up --build
 ```
 
 -----
